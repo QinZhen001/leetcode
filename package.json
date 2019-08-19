@@ -1,0 +1,44 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "记录下在leetcode的学习",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build/build.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.1.0",
+    "expose-loader": "^0.7.5",
+    "file-loader": "^4.1.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "url-loader": "^2.1.0",
+    "webpack": "^4.30.0",
+    "webpack-bundle-analyzer": "^3.4.1",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QinZhen001/leetcode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QinZhen001/leetcode/issues"
+  },
+  "homepage": "https://github.com/QinZhen001/leetcode#readme"
+}
