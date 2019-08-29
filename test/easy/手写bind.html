@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手写bind</title>
+</head>
+<body>
+<script>
+  Function.prototype.myBind = function (ctx, ...args) {
+    return (...innerArgs) => this.call(ctx, ...args, ...innerArgs)
+  }
+
+  const a = {
+    name: "name of a"
+  }
+
+  function test(...msg) {
+    console.log(this.name)
+    console.log(...msg)
+  }
+
+  const t = test.myBind(a, {aaa: "aaa", bbb: "bbb"})
+  t("vcvvv")
+</script>
+</body>
+</html>
