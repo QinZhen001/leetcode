@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全排列</title>
+</head>
+<body>
+<script>
+  /**
+   * @param {number[]} nums
+   * @return {number[][]}
+   */
+  var permute = function (nums) {
+    let result = []
+    for (let i = 0; i < nums.length; i++) {
+      let num = nums.splice(i, i + 1)
+      let arr = wholeSort(num, nums)
+      for (let j = 0; j < arr.length; j++) {
+        result.push(arr[j])
+      }
+    }
+    return result
+  };
+
+
+  function wholeSort(num, nums) {
+    if (nums.length === 1) {
+      return [
+        [num, nums[0]],
+        [nums[0], num]
+      ]
+    } else {
+      return wholeSort(nums[0], nums.slice(1, nums.length))
+    }
+  }
+
+  console.log(permute([1, 2, 3]))
+
+</script>
+</body>
+</html>
