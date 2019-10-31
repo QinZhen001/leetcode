@@ -4,6 +4,7 @@
   "description": "记录下在leetcode的学习",
   "main": "index.js",
   "scripts": {
+    "commit": "git cz",
     "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,6 +19,7 @@
     "css-loader": "^3.1.0",
     "expose-loader": "^0.7.5",
     "file-loader": "^4.1.0",
+    "git-cz": "^3.3.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.9.0",
@@ -40,5 +42,10 @@
   "bugs": {
     "url": "https://github.com/QinZhen001/leetcode/issues"
   },
-  "homepage": "https://github.com/QinZhen001/leetcode#readme"
+  "homepage": "https://github.com/QinZhen001/leetcode#readme",
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  }
 }

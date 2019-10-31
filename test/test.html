@@ -7,68 +7,18 @@
 <body>
 <script>
 
-  let ans = []
-  let list = []
   /**
    * @param {number} n
-   * @return {string[][]}
+   * @return {number}
    */
-  var solveNQueens = function (n) {
-    if (n === 1) {
-      return [["Q"]]
-    }
-    let param = new Map()
-    for (let i = 0; i < n; i++) {
-      let arr = []
-      for (let j = 0; j < n; j++) {
-        if (j === i) {
-          arr.push("Q")
-        } else {
-          arr.push(".")
-        }
-      }
-      param.set(i, arr)
-    }
-    queens(n, new Array(n), new Array(2 * n - 1), new Array(2 * n - 1), param, 0)
-    // 拷贝一份 清空原来全局数据  (防止多次调用程序出错)
-    let resList = list
-    list = []
-    return resList
+  var numSquares = function (n) {
+
   };
 
-  function queens(n, y, w, wc, param, i) {
-    if (ans.length === n) {
-      // 拷贝出来 (js引用问题)
-      let arr = [...ans]
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = arr[i].join("")
-      }
-      list.push(arr)
-    } else {
-      for (let j = 0; j < n; j++) {
-        // 判断当前位置是否可用  (列 主对角线 次对角线)
-        if (y[j] || w[n - 1 - i + j] || wc[i + j])
-          continue
-        // 可用 (标记)
-        y[j] = true
-        w[n - 1 - i + j] = true
-        wc[i + j] = true
-        ans.push(param.get(j));
-        //递归下一行是否可以放置皇后，直到所有皇后都放到对应的位置或者该行无法放置皇后则结束
-        queens(n, y, w, wc, param, i + 1);
-        // 递归完恢复现场
-        ans.pop()
-        y[j] = false;
-        wc[i + j] = false;
-        w[n - 1 - i + j] = false;
-      }
-    }
-  }
 
-
-  let param1 = 4
+  let param1 = 12
   let param2 = [1]
-  let res = solveNQueens(param1)
+  let res = numSquares(param1)
   console.log(res)
 
 
