@@ -4,6 +4,7 @@
   "description": "记录下在leetcode的学习",
   "main": "index.js",
   "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "commit": "npx git-cz",
     "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
