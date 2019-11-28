@@ -6,18 +6,32 @@
 </head>
 <body>
 <script>
+  //https://leetcode-cn.com/problems/sort-colors/
+  // 20  242 1 15 18
 
   /**
    * @param {number[]} nums
    * @return {void} Do not return anything, modify nums in-place instead.
    */
   var sortColors = function (nums) {
-    nums.sort()
-    return nums
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] !== 1) {
+        // debugger
+        let num = nums.splice(i, 1)
+        if (num == 0) {
+
+          nums.unshift(0)
+        } else if (num == 2) {
+          nums.push(2)
+        }
+      }
+    }
+    console.log(nums)
   };
 
 
-  let param1 = [2, 0, 2, 1, 1, 0]
+  let param1 =
+    [1, 2, 0]
   let param2 = 3
   let res = sortColors(param1)
   console.log("111", res)
