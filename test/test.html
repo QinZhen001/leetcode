@@ -6,34 +6,130 @@
 </head>
 <body>
 <script>
-  //https://leetcode-cn.com/problems/sort-colors/
-  // 20  242 1 15 18
+  // https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/solution/javaji-bai-100-zhi-yong-yi-ge-dui-lie-shi-xian-zig/
 
-  /**
-   * @param {number[]} nums
-   * @return {void} Do not return anything, modify nums in-place instead.
-   */
-  var sortColors = function (nums) {
-    for (let i = 0; i < nums.length; i++) {
-      if (nums[i] !== 1) {
-        // debugger
-        let num = nums.splice(i, 1)
-        if (num == 0) {
+  // https://leetcode-cn.com/problems/same-tree/
 
-          nums.unshift(0)
-        } else if (num == 2) {
-          nums.push(2)
-        }
-      }
+  class TreeNode {
+    value
+    left
+    right
+
+    constructor(value) {
+      this.value = value
     }
-    console.log(nums)
+
+    set(value) {
+      this.value = value
+    }
+  }
+
+
+  var createTree = function (nums, index) {
+    let tn = null
+    if (index < nums.length) {
+      let value = nums[index]
+      if (!value) {
+        return null
+      }
+      tn = new TreeNode(value)
+      tn.left = createTree(nums, 2 * index + 1)
+      tn.right = createTree(nums, 2 * index + 2)
+      return tn
+    }
+    return tn
   };
 
 
+  function printTreeTopToBottom(root) {
+    let queue = []
+    // 记录当层的节点的val
+    let list = []
+    // 打印结果
+    let res = []
+
+    if (!root) {
+      return res
+    }
+
+    queue.push(root)
+    let direction = 1
+    // num记录下一层的节点个数
+    let num = 0
+    // 表示当前还有几个节点没遍历
+    let count = 1
+
+    while (queue.length) {
+      if (direction > 0) {
+        let temp = queue.shift()
+        list.push(temp.val)
+        // (奇数层) 正方向
+        // 弹出队首元素; 左孩子先加入队尾,右孩子后加入队尾
+        if (temp.left) {
+          queue.push(temp.left)
+          num++
+        }
+        if (temp.right) {
+          queue.push(temp.right)
+          num++
+        }
+      } else {
+        // (偶数层) 反方向
+        // 弹出队尾元素; 右孩子先加入队首,左孩子后加入队首
+        let temp = queue.pop()
+        list.push(temp.val)
+        if (temp.right) {
+          queue.unshift(temp.right)
+          num++
+        }
+        if (temp.left) {
+          queue.unshift(temp.left)
+          num++
+        }
+      }
+      count--
+      if (count === 0) {
+        // 这一层遍历完毕
+        count = num
+        num = 0
+        // 方向取反
+        direction = -direction
+        res.push(list)
+        list = []
+      }
+
+    }
+
+    return res
+  }
+
+
+  // --------------------------------------
+
+
+  /**
+   * @param {number[]} nums
+   * @return {number}
+   */
+  var findNumberOfLIS = function (nums) {
+    // dp[i][j] i位置到j位置最长递增子序列的个数
+    let len = nums.length
+    let dp = new Array(len)
+    for (let i = 0; i < dp.length; i++) {
+      dp[i] = new Array(len)
+    }
+    // 初始化dp
+    for (let i = 0; i < dp.length; i++) {
+      dp[i][i] = 1
+    }
+
+    console.log("dp", dp)
+  };
+
   let param1 =
-    [1, 2, 0]
+    [1, 3, 5, 4, 7]
   let param2 = 3
-  let res = sortColors(param1)
+  let res = findNumberOfLIS(param1)
   console.log("111", res)
 
 

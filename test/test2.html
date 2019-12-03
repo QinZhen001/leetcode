@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试2222</title>
+</head>
+<body>
+<script>
+
+  class TreeNode {
+    left
+    right
+
+    constructor(val) {
+      this.val = val
+    }
+
+    set(val) {
+      this.val = val
+    }
+  }
+
+
+  var createTree = function (nums, index) {
+    let tn = null
+    if (index < nums.length) {
+      let value = nums[index]
+      if (!value) {
+        return null
+      }
+      tn = new TreeNode(value)
+      tn.left = createTree(nums, 2 * index + 1)
+      tn.right = createTree(nums, 2 * index + 2)
+      return tn
+    }
+    return tn
+  };
+
+  let param1 = [1, 2]
+  let root = createTree(param1, 0)
+
+  let res = []
+
+
+  printTree(root, res, 0)
+
+  console.log("res", res, res.length)
+
+  debugger
+
+
+  function printTree(root, arr, i) {
+    if (root) {
+      // 利用js对象的扩展性
+      arr[i] = root.val
+      printTree(root.left, arr, i * 2 + 1)
+      printTree(root.right, arr, i * 2 + 2)
+    }
+  }
+
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} p
+   * @param {TreeNode} q
+   * @return {boolean}
+   */
+  var isSameTree = function (p, q) {
+    if (p && !q) {
+      return false
+    }
+    if (!p && q) {
+      return false
+    }
+    if (!p && !q) {
+      return true
+    }
+    if (p.val !== q.val) {
+      return false
+    }
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+  };
+</script>
+</body>
+</html>
