@@ -97,6 +97,43 @@ class TreeNode {
 ```
 
 
+### 打印二叉树某个节点的查找路径
+
+
+这个相当于在问，二叉树中查找值为x的结点，打印x结点的全部祖先
+
+```javascript
+  let arr = []
+  /**
+   * @param {TreeNode} root
+   * target 目标节点的值
+   */
+  function findPath(root, target) {
+    if (!root) {
+      return false
+    }
+    if (root.val === target.val) {
+      arr.push(root.val)  // (选择)
+      return true
+    }
+    if (root) {
+      // 如果子树中可以找到匹配值 那么此节点肯定是祖先结点
+      if (findPath(root.left, target) || findPath(root.right, target)) {
+        console.log(root.val)
+        arr.push(root.val)
+        return true
+      }
+    }
+  }
+```
+
+调用findPath后arr里面就是target的所有祖先节点
+
+如果要得的查找路径
+
+只需要将arr反转即可
+
+
 ### 前缀树 (Trie)
 
 
