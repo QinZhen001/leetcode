@@ -6,6 +6,7 @@
 </head>
 <body>
 <script>
+  // https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/
 
   class TreeNode {
     left
@@ -21,70 +22,25 @@
   }
 
 
-  var createTree = function (nums, index) {
-    let tn = null
-    if (index < nums.length) {
-      let value = nums[index]
-      if (!value) {
-        return null
+  /**
+   * @param {number[]} nums
+   * @return {number[]}
+   */
+  var findDisappearedNumbers = function (nums) {
+    let res = []
+    for (let i = 1; i <= nums.length; i++) {
+      let index = nums.indexOf(i)
+      if (index === -1) {
+        res.push(i)
       }
-      tn = new TreeNode(value)
-      tn.left = createTree(nums, 2 * index + 1)
-      tn.right = createTree(nums, 2 * index + 2)
-      return tn
     }
-    return tn
+    return res
   };
 
-  let param1 = [1, 2]
-  let root = createTree(param1, 0)
+  let parm1 = [4, 3, 2, 7, 8, 2, 3, 1]
+  let res = findDisappearedNumbers(parm1)
+  console.log("111", res)
 
-  let res = []
-
-
-  printTree(root, res, 0)
-
-  console.log("res", res, res.length)
-
-  debugger
-
-
-  function printTree(root, arr, i) {
-    if (root) {
-      // 利用js对象的扩展性
-      arr[i] = root.val
-      printTree(root.left, arr, i * 2 + 1)
-      printTree(root.right, arr, i * 2 + 2)
-    }
-  }
-
-  /**
-   * Definition for a binary tree node.
-   * function TreeNode(val) {
-   *     this.val = val;
-   *     this.left = this.right = null;
-   * }
-   */
-  /**
-   * @param {TreeNode} p
-   * @param {TreeNode} q
-   * @return {boolean}
-   */
-  var isSameTree = function (p, q) {
-    if (p && !q) {
-      return false
-    }
-    if (!p && q) {
-      return false
-    }
-    if (!p && !q) {
-      return true
-    }
-    if (p.val !== q.val) {
-      return false
-    }
-    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-  };
 </script>
 </body>
 </html>

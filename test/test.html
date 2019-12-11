@@ -126,12 +126,62 @@
   // ----------------
 
 
-
   let param1 =
-    [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    [1, 2, 2, 3, 4, 4, 3]
+  let root = createTree(param1, 0)
+
+  function printTreeL2R(root, res, index) {
+    if (root) {
+      res[index] = root.val
+      printTreeL2R(root.left, res, index * 2 + 1)
+      printTreeL2R(root.right, res, index * 2 + 2)
+    }
+  }
+
+  function printTreeR2L(root, res, index) {
+    if (root) {
+      res[index] = root.val
+      printTreeR2L(root.right, res, index * 2 + 1)
+      printTreeR2L(root.left, res, index * 2 + 2)
+    }
+  }
+
+
+  function isMirror(t1, t2) {
+    if (!t1 && !t2) {
+      return true
+    }
+    if (!t1 || !t2) {
+      return false
+    }
+    return (t1.val === t2.val) &&
+      isMirror(t1.right, t2.left) &&
+      isMirror(t1.left, t2.right);
+  }
+
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {boolean}
+   */
+  var isSymmetric = function (root) {
+    // console.log("root", root)
+    if (!root) {
+      return true
+    }
+    return isMirror(root, root)
+  };
+
+
   let param2 = 5
   let param3 = 4
-  let AAA = maxSubArray(param1)
+  let AAA = isSymmetric(root)
   console.log("111", AAA)
 
 
