@@ -6,40 +6,41 @@
 </head>
 <body>
 <script>
-  // https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/
 
-  class TreeNode {
-    left
-    right
 
-    constructor(val) {
-      this.val = val
+  function getMax(nums, start, end) {
+    let max = nums[start]
+    for (let i = start + 1; i < end; i++) {
+      if (max < nums[i]) {
+        max = nums[i]
+      }
     }
-
-    set(val) {
-      this.val = val
-    }
+    return max
   }
-
 
   /**
    * @param {number[]} nums
-   * @return {number[]}
+   * @param {number} k
+   * @return {void} Do not return anything, modify nums in-place instead.
    */
-  var findDisappearedNumbers = function (nums) {
-    let res = []
-    for (let i = 1; i <= nums.length; i++) {
-      let index = nums.indexOf(i)
-      if (index === -1) {
-        res.push(i)
-      }
+  var rotate = function (nums, k) {
+    if (k === 0) {
+      return
     }
-    return res
+    for (let i = 0; i < k; i++) {
+      let item = nums.pop()
+      nums.unshift(item)
+    }
+    // console.log("nums", nums)
   };
 
-  let parm1 = [4, 3, 2, 7, 8, 2, 3, 1]
-  let res = findDisappearedNumbers(parm1)
+
+  let parm1 =
+    [1, 2, 3, 4, 5, 6, 7]
+  let parm2 = 3
+  let res = rotate(parm1, parm2)
   console.log("111", res)
+
 
 </script>
 </body>

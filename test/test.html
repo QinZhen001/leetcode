@@ -20,84 +20,20 @@
 
   }
 
-
   var createTree = function (nums, index) {
     let tn = null
     if (index < nums.length) {
-      let val = nums[index]
-      if (!val) {
+      let value = nums[index]
+      if (!value) {
         return null
       }
-      tn = new TreeNode(val)
+      tn = new TreeNode(value)
       tn.left = createTree(nums, 2 * index + 1)
       tn.right = createTree(nums, 2 * index + 2)
       return tn
     }
     return tn
   };
-
-
-  function printTreeTopToBottom(root) {
-    let queue = []
-    // 记录当层的节点的val
-    let list = []
-    // 打印结果
-    let res = []
-
-    if (!root) {
-      return res
-    }
-
-    queue.push(root)
-    let direction = 1
-    // num记录下一层的节点个数
-    let num = 0
-    // 表示当前还有几个节点没遍历
-    let count = 1
-
-    while (queue.length) {
-      if (direction > 0) {
-        let temp = queue.shift()
-        list.push(temp.val)
-        // (奇数层) 正方向
-        // 弹出队首元素; 左孩子先加入队尾,右孩子后加入队尾
-        if (temp.left) {
-          queue.push(temp.left)
-          num++
-        }
-        if (temp.right) {
-          queue.push(temp.right)
-          num++
-        }
-      } else {
-        // (偶数层) 反方向
-        // 弹出队尾元素; 右孩子先加入队首,左孩子后加入队首
-        let temp = queue.pop()
-        list.push(temp.val)
-        if (temp.right) {
-          queue.unshift(temp.right)
-          num++
-        }
-        if (temp.left) {
-          queue.unshift(temp.left)
-          num++
-        }
-      }
-      count--
-      if (count === 0) {
-        // 这一层遍历完毕
-        count = num
-        num = 0
-        // 方向取反
-        direction = -direction
-        res.push(list)
-        list = []
-      }
-
-    }
-
-    return res
-  }
 
 
   // --------------------------------------
@@ -127,37 +63,18 @@
 
 
   let param1 =
-    [1, 2, 2, 3, 4, 4, 3]
+    [1, null, 2, 3]
   let root = createTree(param1, 0)
 
-  function printTreeL2R(root, res, index) {
+
+  function inorder(root, res) {
     if (root) {
-      res[index] = root.val
-      printTreeL2R(root.left, res, index * 2 + 1)
-      printTreeL2R(root.right, res, index * 2 + 2)
+      inorder(root.left, res)
+      res.push(root.val)
+      inorder(root.right, res)
     }
   }
 
-  function printTreeR2L(root, res, index) {
-    if (root) {
-      res[index] = root.val
-      printTreeR2L(root.right, res, index * 2 + 1)
-      printTreeR2L(root.left, res, index * 2 + 2)
-    }
-  }
-
-
-  function isMirror(t1, t2) {
-    if (!t1 && !t2) {
-      return true
-    }
-    if (!t1 || !t2) {
-      return false
-    }
-    return (t1.val === t2.val) &&
-      isMirror(t1.right, t2.left) &&
-      isMirror(t1.left, t2.right);
-  }
 
   /**
    * Definition for a binary tree node.
@@ -168,20 +85,31 @@
    */
   /**
    * @param {TreeNode} root
-   * @return {boolean}
+   * @return {number[]}
    */
-  var isSymmetric = function (root) {
-    // console.log("root", root)
+  var inorderTraversal = function (root) {
+    let res = []
+    let stack = []
     if (!root) {
-      return true
+      return res
     }
-    return isMirror(root, root)
+    let cur = root
+    while (cur || stack.length) {
+      while (cur) {
+        stack.push(cur)
+        cur = cur.left
+      }
+      cur = stack.pop()
+      res.push(cur.val)
+      cur = cur.right
+    }
+    return res
   };
 
 
   let param2 = 5
   let param3 = 4
-  let AAA = isSymmetric(root)
+  let AAA = inorderTraversal(root)
   console.log("111", AAA)
 
 
