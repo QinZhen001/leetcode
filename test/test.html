@@ -6,9 +6,7 @@
 </head>
 <body>
 <script>
-  // https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/solution/javaji-bai-100-zhi-yong-yi-ge-dui-lie-shi-xian-zig/
 
-  // https://leetcode-cn.com/problems/same-tree/
 
   class TreeNode {
     left
@@ -20,60 +18,126 @@
 
   }
 
-  var createTree = function (nums, index) {
-    let tn = null
-    if (index < nums.length) {
-      let value = nums[index]
-      if (!value) {
-        return null
+  //搜索二叉树
+  class BinarySearchTree {
+    constructor(root) {
+      if (typeof root === "number") {
+        root = new TreeNode(root)
       }
-      tn = new TreeNode(value)
-      tn.left = createTree(nums, 2 * index + 1)
-      tn.right = createTree(nums, 2 * index + 2)
-      return tn
+      this.root = root
     }
-    return tn
-  };
 
+    insert(key) {
+      if (!key) {
+        // key 为 null
+        return
+      }
+      if (typeof key === "number") {
+        key = new TreeNode(key)
+      }
+      if (!this.root) {
+        this.root = key
+      } else {
+        this._insertNode(this.root, key)
+      }
+    }
 
-  // --------------------------------------
-
-
-  // /**
-  //  * @param {number[]} nums
-  //  * @return {number}
-  //  */
-  // var findNumberOfLIS = function (nums) {
-  //   // dp[i][j] i位置到j位置最长递增子序列的个数
-  //   let len = nums.length
-  //   let dp = new Array(len)
-  //   for (let i = 0; i < dp.length; i++) {
-  //     dp[i] = new Array(len)
-  //   }
-  //   // 初始化dp
-  //   for (let i = 0; i < dp.length; i++) {
-  //     dp[i][i] = 1
-  //   }
-  //
-  //   console.log("dp", dp)
-  // };
-
-
-  // ----------------
-
-
-  let param1 =
-    [1, null, 2, 3]
-  let root = createTree(param1, 0)
-
-
-  function inorder(root, res) {
-    if (root) {
-      inorder(root.left, res)
-      res.push(root.val)
-      inorder(root.right, res)
+    _insertNode(root, node) {
+      if (node.val < root.val) {
+        // node的值小 往左边插入
+        if (root.left) {
+          this._insertNode(root.left, node)
+        } else {
+          root.left = node
+        }
+      } else {
+        // node的值大 往右边插入
+        if (root.right) {
+          this._insertNode(root.right, node)
+        } else {
+          root.right = node
+        }
+      }
     }
   }
+
+  // 我们拿一个数组来测试二叉搜索树
+  let arr = [5, 3, 6, 2, 4, null, null, 1]
+  let tree = new BinarySearchTree()
+
+
+  for (let item of arr) {
+    tree.insert(item)
+  }
+
+  console.log(tree)
+
+
+  /**
+   * 非递归遍历没必要传递路径数组
+   */
+  function inorderTree(root, k) {
+    // 栈
+    let stack = []
+    // 路径
+    let list = []
+    while (root || stack.length) {
+      while (root) {
+        stack.push(root);
+        root = root.left;
+      }
+      if (stack.length) {
+        let node = stack.pop()
+        list.push(node.val)
+        if (list[k - 1]) {
+          return list[k - 1]
+        }
+        if (node.right) {
+          root = node.right;
+        }
+      }
+    }
+    return null
+  }
+
+
+
+
+  // https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/solution/javaji-bai-100-zhi-yong-yi-ge-dui-lie-shi-xian-zig/
+
+  // https://leetcode-cn.com/problems/same-tree/
+
+  //
+  // var createTree = function (nums, index) {
+  //   let tn = null
+  //   if (index < nums.length) {
+  //     let value = nums[index]
+  //     if (!value) {
+  //       return null
+  //     }
+  //     tn = new TreeNode(value)
+  //     tn.left = createTree(nums, 2 * index + 1)
+  //     tn.right = createTree(nums, 2 * index + 2)
+  //     return tn
+  //   }
+  //   return tn
+  // };
+  //
+  //
+  // let param1 =
+  //   [5, 3, 6, 2, 4, null, null, 1]
+  //
+  //
+  // let root = createTree(param1, 0)
+
+  //
+  // function inorder(root, res) {
+  //   if (root) {
+  //     inorder(root.left, res)
+  //     res.push(root.val)
+  //     inorder(root.right, res)
+  //   }
+  // }
 
 
   /**
@@ -106,11 +170,11 @@
     return res
   };
 
-
-  let param2 = 5
-  let param3 = 4
-  let AAA = inorderTraversal(root)
-  console.log("111", AAA)
+  //
+  // let param2 = 5
+  // let param3 = 4
+  // let AAA = inorderTraversal(root)
+  // console.log("111", AAA)
 
 
 </script>

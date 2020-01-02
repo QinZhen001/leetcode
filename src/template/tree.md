@@ -67,6 +67,68 @@ class TreeNode {
 
 
 
+### 中序遍历
+
+
+#### 递归形式
+
+```javascript
+  function inorder(root, list) {
+    if (root) {
+      inorder(root.left, list)
+      list.push(root.val)
+      inorder(root.right, list)
+    }
+  }
+
+
+  let root = tree.root
+  let list = []
+  inorder(root, list)
+```
+
+
+
+#### 非递归形式
+
+非递归遍历的好处：
+
+在某些情况下，我们需要在遍历的过程中暂停遍历，这个时候使用非递归遍历就非常合适了。
+
+```javascript
+ /**
+   * 非递归遍历没必要传递路径数组
+   */
+  function inorderTree(root) {
+    // 栈
+    let stack = []
+    // 路径
+    let list = []
+    while (root || stack.length) {
+      while (root) {
+        stack.push(root);
+        root = root.left;
+      }
+      if (stack.length) {
+        let node = stack.pop()
+        list.push(node.val)
+        if (node.right) {
+          root = node.right;
+        }
+      }
+    }
+    return list
+  }
+
+
+  let root = tree.root
+  console.log(inorderTree(root))
+
+```
+
+
+
+
 ### 从上到下打印二叉树 (BFC)
 
 
@@ -269,7 +331,81 @@ class TreeNode {
 
 
 
+### 搜索二叉树 (BinarySearchTree)
 
+
+插播一条搜索二叉树的重要性质:
+
+**中序遍历可以从小到大打印出一棵搜索二叉树**
+
+```javascript
+
+
+  class TreeNode {
+    left
+    right
+
+    constructor(value) {
+      this.val = value
+    }
+
+  }
+
+  //搜索二叉树
+  class BinarySearchTree {
+    constructor(root) {
+      if (typeof root === "number") {
+        root = new TreeNode(root)
+      }
+      this.root = root
+    }
+
+    insert(key) {
+      if (!key) {
+        // key 为 null
+        return
+      }
+      if (typeof key === "number") {
+        key = new TreeNode(key)
+      }
+      if (!this.root) {
+        this.root = key
+      } else {
+        this._insertNode(this.root, key)
+      }
+    }
+
+    _insertNode(root, node) {
+      if (node.val < root.val) {
+        // node的值小 往左边插入
+        if (root.left) {
+          this._insertNode(root.left, node)
+        } else {
+          root.left = node
+        }
+      } else {
+        // node的值大 往右边插入
+        if (root.right) {
+          this._insertNode(root.right, node)
+        } else {
+          root.right = node
+        }
+      }
+    }
+  }
+
+// ------------------------------------------------
+
+  // 我们拿一个数组来测试二叉搜索树
+  let arr = [5, 3, 6, 2, 4, null, null, 1]
+  let root = new BinarySearchTree()
+  
+  for (let item of arr) {
+    root.insert(item)
+  }
+
+  console.log(root)
+```
 
 
 

@@ -8,39 +8,10 @@
 <script>
 
 
-  function getMax(nums, start, end) {
-    let max = nums[start]
-    for (let i = start + 1; i < end; i++) {
-      if (max < nums[i]) {
-        max = nums[i]
-      }
-    }
-    return max
-  }
-
-  /**
-   * @param {number[]} nums
-   * @param {number} k
-   * @return {void} Do not return anything, modify nums in-place instead.
-   */
-  var rotate = function (nums, k) {
-    if (k === 0) {
-      return
-    }
-    for (let i = 0; i < k; i++) {
-      let item = nums.pop()
-      nums.unshift(item)
-    }
-    // console.log("nums", nums)
-  };
-
-
-  let parm1 =
-    [1, 2, 3, 4, 5, 6, 7]
-  let parm2 = 3
-  let res = rotate(parm1, parm2)
-  console.log("111", res)
-
+  let arr = new Array(5).fill(0)
+  console.log(arr[3])  // 0
+  arr[3]++
+  console.log(arr[3])  // 1
 
 </script>
 </body>
