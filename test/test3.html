@@ -8,28 +8,52 @@
 <script>
 
 
-  /**
-   * @param {number[]} heights
-   * @return {number}
-   */
-  var largestRectangleArea = function (heights) {
-    let stack = []
-    let maxArea = 0
-    for (let i = 0; i < heights.length; i++) {
-      if (heights[i + 1] && heights[i] < heights[i + 1]) {
-        let index
-        while ((index = stack.pop()) >= 0) {
-          maxArea = Math.max(maxArea, heights[index] * (i - index - 1))
+  /*  /!**
+     * @param {number[]} heights
+     * @return {number}
+     *!/
+    var largestRectangleArea = function (heights) {
+      let stack = []
+      let maxArea = 0
+      for (let i = 0; i < heights.length; i++) {
+        if (heights[i + 1] && heights[i] < heights[i + 1]) {
+          let index
+          while ((index = stack.pop()) >= 0) {
+            maxArea = Math.max(maxArea, heights[index] * (i - index - 1))
+          }
         }
+        stack.push(i)
       }
-      stack.push(i)
-    }
-  };
+    };
 
 
-  let arr1 = [2, 1, 5, 6, 2, 3]
-  let res = largestRectangleArea(arr1)
-  console.log("res", res)
+    let arr1 = [2, 1, 5, 6, 2, 3]
+    let res = largestRectangleArea(arr1)
+    console.log("res", res)*/
+
+  //
+  // let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  //
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (arr[i] === 3) {
+  //     arr.splice(i, 1)
+  //   }
+  //   console.log(`下标 ${i} 的值为：${arr[i]} ,当前数组长度:${arr.length}`)
+  // }
+
+  //
+  // let obj = {
+  //   aaa: "accept",
+  //   bbb: "accept",
+  //   ddd: "not",
+  //   eee: "edc"
+  // }
+  //
+  // let res = Object.keys(obj).filter(key => obj[key] === "accept")
+  //
+  // console.log("res", res)
+
+
 </script>
 </body>
 
