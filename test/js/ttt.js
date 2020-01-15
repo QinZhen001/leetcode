@@ -1,46 +1,46 @@
-function dfs(adjacency, flags, i) {
-  if (flags[i] == 1) return false;
-  if (flags[i] == -1) return true;
-  flags[i] = 1;
-  for (let j = 0; j < adjacency.length; j++) {
-    if (adjacency[i][j] == 1 && !dfs(adjacency, flags, j)) return false;
-  }
-  flags[i] = -1;
-  return true;
-}
-
 /**
- * @param {number} numCourses
- * @param {number[][]} prerequisites
- * @return {boolean}
+ * @param {number[]} height
+ * @return {number}
  */
-var canFinish = function (numCourses, prerequisites) {
-  let adjacency = new Array(numCourses)
-  for (let i = 0; i < adjacency.length; i++) {
-    adjacency[i] = new Array(numCourses).fill(0)
-  }
-  // 标志位
-  let flags = new Array(numCourses).fill(0)
-
-  for (let item of prerequisites) {
-    // [1] 是 [0] 的前置课
-    adjacency[item[1]][item[0]] = 1
-  }
-  console.log("adjacency", adjacency)
-  for (let i = 0; i < numCourses; i++) {
-    if (!dfs(adjacency, flags, i)) {
-      return false
+var trap = function (height) {
+  let maxIndex = 0
+  let max = height[0]
+  for (let i = 1; i < height.length; i++) {
+    if (height[i] > max) {
+      max = height[i]
+      maxIndex = i
     }
   }
-  return true
+  let flag = new Array(height.length).fill(false)
 
-  // console.log("adjacency", adjacency)
+  for (let i = 1; i < maxIndex; i++) {
+    if (height[i] < height[i - 1]) {
+      // i位置可以接到雨水
+      flag[i] = true
+    } else if (height[i] === height[i - 1]) {
+      flag[i] = true
+    }
+  }
+
+  for (let i = height.length - 1; i > maxIndex; i--) {
+    if (height[i - 1] < height[i]) {
+      // i位置可以接到雨水
+      flag[i] = true
+    } else if (height[i - 1] === height[i]) {
+      flag[i] = true
+    }
+  }
+
+  console.log("maxIndex", maxIndex)
+  console.log("max", max)
+  console.log("flag", flag)
 };
+
 
 let arr1 =
   // [0, 0, 1]
-  4
+  [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 // [2,3,-2,4]
 let arr2 = [[0, 1], [3, 1], [1, 3], [3, 2]]
-let res = canFinish(arr1, arr2)
+let res = trap(arr1)
 console.log("res", res)
