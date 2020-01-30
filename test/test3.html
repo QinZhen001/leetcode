@@ -1,86 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>测试333</title>
+  <meta charset="UTF-8">
+  <title>测试333</title>
 </head>
+
 <body>
-<script>
-  // 链表节点
-  class Node {
-    constructor(element) {
-      this.element = element
-      this.next = null
-    }
-  }
+  <script>
+    /**
+* Definition for singly-linked list.
+* function ListNode(val) {
+*     this.val = val;
+*     this.next = null;
+* }
+*/
 
-  // 链表
-  class linkedList {
-    constructor() {
-      this.head = null
-      this.length = 0
-    }
-
-    // 追加元素
-    append(element) {
-      const node = new Node(element)
-      let current = null
-      if (!this.head) {
-        this.head = node
-      } else {
-        current = this.head
-        while (current.next) {
-          current = current.next
-        }
-        current.next = node
+    /**
+     * @param {ListNode} head
+     * @return {boolean}
+     */
+    var hasCycle = function (head) {
+      if(!head || !head.next){
+        return false
       }
-      this.length++
-    }
-
-    // 任意位置插入
-    insert(position, element) {
-      if (position >= 0 && position <= this.length) {
-        const node = new Node(element)
-        let current = this.head
-        let previous = null
-        let index = 0
-        if (position === 0) {
-          node.next = current
-          this.head = node
-        } else {
-          while (++index < position) {
-            previous = current
-            current = current.next
-          }
-          node.next = current
-          previous.next = node
+      // 快慢指针
+      // 快指针一次走两步 慢指针一次走一步
+      let fast = head.next.next
+      let slow = head.next
+      while (fast) {
+        if (fast === slow) {
+          return true
         }
-        this.length++
-        return true
+        if(!fast.next){
+          return false 
+        }
+          fast = fast.next.next
+          slow = slow.next
       }
       return false
+    };
+
+
+
+
+  </script>
+
+  <!-- <script>
+    let arr = [1, 2, 4, 3, 2, 1, 5, 7, 435, 23, 56, 23, 56, 243, 76, 124, 5678, 789]
+
+
+    function swap(arr, i, j) {
+      let temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
     }
 
-    // 移除指定位置元素
-    removeAt(position) {
-      // 检查越界值
-      if (position >= 0 && position < this.length) {
 
+    function quickSort(arr) {
+      _quicksort(0, arr.length - 1, arr)
+      return arr
+    }
+
+    function _quicksort(start, end, arr) {
+      if (start < end) {
+        let pivot = arr[start]
+        let left = start
+        let right = end
+        while (left !== right) {
+          while (arr[right] >= pivot && left < right) {
+            right--
+          }
+          while (arr[left] <= pivot && left < right) {
+            left++
+          }
+          swap(arr, left, right)
+        }
+        // 此时left和right在同一位置 （left移动到中间）
+        // 交换start位置和left位置的值
+        swap(arr,start,left)
+        _quicksort(start, left - 1, arr)
+        _quicksort(left + 1, end, arr)
       }
     }
 
-  }
+    let res = quickSort(arr)
+    console.log("res", res)
+  </script> -->
 
-
-  const list = new linkedList()
-  list.insert(0, "aaa")
-  list.insert(0, "bbb")
-  list.insert(0, "ccc")
-  list.insert(0, "ddd")
-  list.insert(2, "asd")
-  console.log(list)
-
-</script>
 </body>
 
 </html>
