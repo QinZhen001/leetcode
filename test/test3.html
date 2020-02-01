@@ -9,40 +9,38 @@
 <body>
   <script>
     /**
-* Definition for singly-linked list.
-* function ListNode(val) {
-*     this.val = val;
-*     this.next = null;
-* }
-*/
+   * Definition for singly-linked list.
+   * function ListNode(val) {
+   *     this.val = val;
+   *     this.next = null;
+   * }
+   */
 
     /**
-     * @param {ListNode} head
-     * @return {boolean}
+     * @param {ListNode} l1
+     * @param {ListNode} l2
+     * @return {ListNode}
      */
-    var hasCycle = function (head) {
-      if(!head || !head.next){
-        return false
-      }
-      // 快慢指针
-      // 快指针一次走两步 慢指针一次走一步
-      let fast = head.next.next
-      let slow = head.next
-      while (fast) {
-        if (fast === slow) {
-          return true
+    var mergeTwoLists = function (l1, l2) {
+      let newHead = new ListNode(-1)
+      let prev = newHead
+
+      while(l1 && l2){
+        if(l1.val <= l2.val){
+          prev.next = l1 
+          l1 = l1.next
+        }else{
+          prev.next = l2 
+          l2 = l2.next 
         }
-        if(!fast.next){
-          return false 
-        }
-          fast = fast.next.next
-          slow = slow.next
+        // 新指针移动
+        prev = prev.next 
       }
-      return false
+
+      // 可能存在还有一个list没走到底
+      prev.next = l1 == null ? l2 :l1 
+      return newHead.next
     };
-
-
-
 
   </script>
 
