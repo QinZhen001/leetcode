@@ -7,40 +7,93 @@
 </head>
 
 <body>
+  <input id="in_1" value="1" sth="whatever">
   <script>
-    /**
-   * Definition for singly-linked list.
-   * function ListNode(val) {
-   *     this.val = val;
-   *     this.next = null;
-   * }
-   */
 
+
+
+
+
+    /**
+     * Definition for singly-linked list.
+     * function ListNode(val) {
+     *     this.val = val;
+     *     this.next = null;
+     * }
+     */
     /**
      * @param {ListNode} l1
      * @param {ListNode} l2
      * @return {ListNode}
      */
-    var mergeTwoLists = function (l1, l2) {
-      let newHead = new ListNode(-1)
-      let prev = newHead
+    var addTwoNumbers = function (l1, l2) {
 
-      while(l1 && l2){
-        if(l1.val <= l2.val){
-          prev.next = l1 
-          l1 = l1.next
-        }else{
-          prev.next = l2 
-          l2 = l2.next 
-        }
-        // 新指针移动
-        prev = prev.next 
+    };
+
+
+
+
+    // --------------  调用  ---------------------------------------- 
+
+
+    class Node {
+      constructor(val) {
+        this.val = val
+        this.next = null
+      }
+    }
+
+
+    // 链表
+    class linkedList {
+      constructor() {
+        this.head = null
+        this.length = 0
       }
 
-      // 可能存在还有一个list没走到底
-      prev.next = l1 == null ? l2 :l1 
-      return newHead.next
-    };
+      // 追加元素
+      append(element) {
+        const node = new Node(element)
+        let current = null
+        if (!this.head) {
+          this.head = node
+        } else {
+          current = this.head
+          while (current.next) {
+            current = current.next
+          }
+          current.next = node
+        }
+        this.length++
+      }
+    }
+
+
+
+    // let arr = "   -42"
+    // let arr ="4193 with words"
+    // let arr = "words and 987"
+    // let arr = "-91283472332"
+    let arg1 = [2, 4, 5]
+    let arg2 = [5, 6, 4]
+
+    let list1 = new linkedList()
+    for (let i = 0; i < arg1.length; i++) {
+      list1.append(arg1[i])
+    }
+
+    let list2 = new linkedList()
+    for (let i = 0; i < arg2.length; i++) {
+      list2.append(arg2[i])
+    }
+
+    console.log("list1", list1)
+    console.log("list2", list2)
+
+    const res = addTwoNumbers(list1.head, list2.head)
+    console.log("res", res)
+
+
 
   </script>
 
