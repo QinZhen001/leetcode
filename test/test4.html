@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class LLazyMan {
+            constructor(name) {
+                this.name = name
+                this.runTimer = null
+                this.queueList = []
+                this.sayHi()
+            }
+            sayHi() {
+                this.queueList.push(() => {
+                    console.log(`Hi, This is ${this.name}!`)
+                })
+                return this.run()
+            }
+
+            sleep(timer) {
+                this.queueList.push(() => {
+                    return new Promise((resolve, reject) => {
+                        console.log("延时 ", timer)
+                        setTimeout(() => {
+                            resolve()
+                        }, timer * 1000)
+                    })
+                })
+                return this.run()
+            }
+
+            sleepFirst(timer) {
+                this.queueList.unshift(() => {
+                    return new Promise((resolve, reject) => {
+                        console.log("延时 ", timer)
+                        setTimeout(() => {
+                            resolve()
+                        }, timer * 1000)
+                    })
+                })
+                return this.run()
+            }
+
+            run() {
+                if (this.runTimer) {
+                    clearTimeout(this.runTimer)
+                }
+                this.runTimer = setTimeout(async () => {
+                    console.log(this.queueList)
+                    for (let fn of this.queueList) {
+                        await fn()
+                    }
+                    this.queueList = []
+                    this.runTimer = null
+                }, 0)
+                return this
+            }
+
+            eat(name) {
+                this.queueList.push(() => {
+                    console.log(`Eat ${name} ~`)
+                })
+                return this.run()
+            }
+        }
+
+        let LazyMan = name => (new LLazyMan(name))
+
+        LazyMan('Hank').eat("aaa").sleepFirst(5)
+
+
+
+    </script>
+</body>
+
+</html>
