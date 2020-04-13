@@ -1,61 +1,31 @@
-var findNext = function (nums) {
-    if (nums.length === 1) {
-        return -1
-    }
-    // 关键位置 (在下降位置的最底部)
-    let index = 0
-    let curMax = nums[0]
-    for (let i = 1; i < nums.length; i++) {
-        if (nums[i] > curMax) {
-            index = i
-            break
-        } else {
-            curMax = nums[i]
-        }
-    }
-
-    if (index === 0) {
-        // 当前的数字已经是最大的
-        return -1
-    }
-    // console.log(index)
-
-    let front = nums.slice(0, index - 1)  // [9, 8, 7]
-    let behind = nums.slice(index - 1)  // [6, 8, 5, 4, 3]
-    // console.log(front,behind) 
-
-    
-    let curMin 
-    let curMInIndex 
-
-    for(let i=1;i<behind.length;i++){
-        if(behind[i] > behind[0]){
-            if(!curMin){
-                curMin = behind[i]
-                curMInIndex = i 
-            }else{
-                if( curMin > behind[i]){
-                    curMin  =  behind[i]
-                    curMInIndex = i 
-                }
-            }
-        }
-    }
-
-    curMin = behind.splice(curMInIndex,1)
-
-
-    behind = curMin.concat(behind.sort())
-    
-
-    return front.concat(behind)
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function (nums, target) {
+ debugger;
+ let left = 0;
+ let right = nums.length;
+ let index = null;
+ while (left <= right) {
+  console.log("1111");
+  let mid = parseInt((left + right) / 2);
+  debugger;
+  if (nums[mid] === target) {
+   index = mid;
+   break;
+  } else if (nums[mid] > target) {
+   right = mid - 1;
+  } else {
+   left = mid + 1;
+  }
+ }
+ console.log(index);
 };
 
+const param1 = [5, 7, 7, 8, 8, 10];
+const param2 = 8;
+const res = searchRange(param1, param2);
 
-let arg1 = [9, 8, 7, 6, 8,5, 4, 3]
-let arg2 = 100
-let res = findNext(arg1)
-console.log("res", res)
-
-
-
+console.log("res", res);
