@@ -1,46 +1,34 @@
 /**
- * @param {number[]} height
+ * @param {number[]} nums
  * @return {number}
  */
-var trap = function (height) {
-  let maxIndex = 0
-  let max = height[0]
-  for (let i = 1; i < height.length; i++) {
-    if (height[i] > max) {
-      max = height[i]
-      maxIndex = i
+var findUnsortedSubarray = function (nums) {
+  let start = 0;
+  let end = nums.length - 1;
+  while (start + 1 < nums.length) {
+    if (nums[start] < nums[start + 1]) {
+      start++;
+    } else {
+      break;
     }
   }
-  let flag = new Array(height.length).fill(false)
-
-  for (let i = 1; i < maxIndex; i++) {
-    if (height[i] < height[i - 1]) {
-      // i位置可以接到雨水
-      flag[i] = true
-    } else if (height[i] === height[i - 1]) {
-      flag[i] = true
+  while (end - 1 >= 0) {
+    if (nums[end - 1] < nums[end]) {
+      end--;
+    } else {
+      break;
     }
   }
-
-  for (let i = height.length - 1; i > maxIndex; i--) {
-    if (height[i - 1] < height[i]) {
-      // i位置可以接到雨水
-      flag[i] = true
-    } else if (height[i - 1] === height[i]) {
-      flag[i] = true
-    }
+  if (start >= end) {
+    // 原数组已经是一个升序数组
+    return 0;
   }
-
-  console.log("maxIndex", maxIndex)
-  console.log("max", max)
-  console.log("flag", flag)
+  console.log("start", start);
+  console.log("end", end);
+  debugger
+  return end - start + 1;
 };
 
-
-let arr1 =
-  // [0, 0, 1]
-  [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
-// [2,3,-2,4]
-let arr2 = [[0, 1], [3, 1], [1, 3], [3, 2]]
-let res = trap(arr1)
-console.log("res", res)
+let param1 = [1,2,3,3,3];
+const res = findUnsortedSubarray(param1);
+console.log("res", res);
