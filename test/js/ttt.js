@@ -19,6 +19,7 @@ var compressString = function (S) {
       // 已经出现过该字母
       newObj[item] = newObj[item] + 1;
     }
+    return pre
   }
   console.log(newObj, newArr);
 };
