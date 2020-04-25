@@ -1,30 +1,38 @@
-// https://leetcode-cn.com/problems/compress-string-lcci/
-// TODO: 要考虑字母前面出现过 后面接着出现的情况
+function allPermute(nums, curSize, visited, record, path) {
+  if (curSize === nums.length) {
+    // path是引用型数据 要拷贝出来 不然path或变动 
+    path = path.slice()
+    record.push(path);
+    return;
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (!visited[i]) {
+      path.push(nums[i]);
+      visited[i] = true;
+      allPermute(nums, curSize + 1, visited, record, path);
+      // 回溯状态重置
+      path.pop();
+      visited[i] = false;
+    }
+  }
+}
 
 /**
- * @param {string} S
- * @return {string}
+ * @param {number[]} nums
+ * @return {number[][]}
  */
-var compressString = function (S) {
-  let newStr = "";
-  let newObj = {};
-  let newArr = [];
-  for (let i = 0; i < S.length; i++) {
-    let item = S[i];
-    if (!newObj[item]) {
-      // 还没有出现过该字母
-      newArr.push(item);
-      newObj[item] = 1;
-    } else {
-      // 已经出现过该字母
-      newObj[item] = newObj[item] + 1;
-    }
-    return pre
-  }
-  console.log(newObj, newArr);
+var permute = function (nums) {
+  let result = [];
+  let len = nums.length;
+  let visited = new Array(nums.length).fill(false);
+  let path = [];
+  let record = [];
+  let curSize = 0;
+  allPermute(nums, curSize, visited, record, path);
+  return record;
 };
 
-let param1 = "aabcccccaaa";
+let param1 = [1, 2, 3];
 let param2 = 2;
-const res = compressString(param1, param2);
+const res = permute(param1);
 console.log("res", res);
