@@ -5,8 +5,8 @@ var LRUCache = function (capacity) {
   if (typeof capacity !== "number") {
     throw new Error("need a number");
   }
+  this.cache = new Map();
   this.capacity = capacity;
-  this.map = new WeakMap();
 };
 
 /**
@@ -14,16 +14,14 @@ var LRUCache = function (capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-  let item = this.map.get(key);
-  if (!item) {
-    return -1;
+  if(this.cache.has(key)){
+    // 存在更新操作
+    let temp = this.cache.get(key)
+    this.cache.delete(key)
+    this.cache.set(key, temp)
+    return temp
   }
-  if (!item.num) {
-    item.num = 1;
-  } else {
-    item.num++;
-  }
-  return item.value;
+  return -1
 };
 
 /**
@@ -32,29 +30,19 @@ LRUCache.prototype.get = function (key) {
  * @return {void}
  */
 LRUCache.prototype.put = function (key, value) {
-  let item = {
-    value:value,
-    num:0
-  }
-  if (this.map.size >= this.capacity) {
-    // 满了
-    let minNum = 999999;
-    let minKey = "";
-    for (let [key, value] of map.entries()) {
-      if (value.num < minNum) {
-        minNum = value.num;
-        minKey = key
-      }
+  if(this.cache.has(key)){
+    // 存在 删除后加入
+    this.cache.delete(key)
+  }else {
+    // 不存在
+    // 缓存超出最大值，则移除最近没有使用的
+    if(this.cache.size >= this.capacity){
+      let firstKey = this.cache.keys().next().value
+      this.cache.delete(firstKey)
     }
-    this.map.delete(minKey)
-    this.map.set(key,item)
-  } else {
-    // 未满
-    debugger
-    this.map.set(key,item)
   }
+  this.cache.set(key, value)
 };
-
 /**
  * Your LRUCache object will be instantiated and called as such:
  * var obj = new LRUCache(capacity)
@@ -68,12 +56,30 @@ LRUCache.prototype.put = function (key, value) {
 
 // console.log("res", res);
 
+// cache.put(1, 1);
+// cache.put(2, 2);
+// let res1 = cache.get(1);
+// console.log("res1",res1)
+// cache.put(3, 3);
+// const res2 =  cache.get(2)
+// console.log("res2",res2)
 
-let cache = new LRUCache(2)
+// cache.put(4, 4);    // 该操作会使得密钥 1 作废
+// const res3 = cache.get(1);       // 返回 -1 (未找到)
+// console.log("res3",res3)
+// const res4 = cache.get(3);       // 返回  3
+// console.log("res4",res4)
+// const res5 =  cache.get(4);       // 返回  4
+// console.log("res5",res5)
+
+let cache = new LRUCache(2);
+cache.get(2); // -1
 cache.put(1, 1);
 cache.put(2, 2);
-let res1 = cache.get(1); 
-console.log("res1",res1)
+cache.get(1);
 cache.put(3, 3);
-const res2 =  cache.get(2)
-console.log("res2",res2)
+console.log(cache);
+debugger;
+const res = cache.get(2);
+console.log(cache);
+console.log(res);
