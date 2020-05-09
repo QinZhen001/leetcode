@@ -1,85 +1,124 @@
-/**
- * @param {number} capacity
- */
-var LRUCache = function (capacity) {
-  if (typeof capacity !== "number") {
-    throw new Error("need a number");
-  }
-  this.cache = new Map();
-  this.capacity = capacity;
-};
+ // 获取所有数组的交集
+ function getIntersection(arrays){
+  const othLength = arrays.length
+  const result = []
 
-/**
- * @param {number} key
- * @return {number}
- */
-LRUCache.prototype.get = function (key) {
-  if(this.cache.has(key)){
-    // 存在更新操作
-    let temp = this.cache.get(key)
-    this.cache.delete(key)
-    this.cache.set(key, temp)
-    return temp
-  }
-  return -1
-};
+  let maxLength = Number.MAX_VALUE
+  let othIndex = othLength
 
-/**
- * @param {number} key
- * @param {number} value
- * @return {void}
- */
-LRUCache.prototype.put = function (key, value) {
-  if(this.cache.has(key)){
-    // 存在 删除后加入
-    this.cache.delete(key)
-  }else {
-    // 不存在
-    // 缓存超出最大值，则移除最近没有使用的
-    if(this.cache.size >= this.capacity){
-      let firstKey = this.cache.keys().next().value
-      this.cache.delete(firstKey)
+  // 找到maxLength可能的最大值
+  while(othIndex--){
+    let array = arrays[othIndex]
+    maxLength = Math.min(array.length, maxLength)
+  }
+
+  const length = arrays[0].length
+  let array = arrays[0]
+  let index = -1
+
+  outer:
+  while(++index < length && result.length < maxLength){
+    // 将第一个数组每一项依次取出
+    let value = array[index]
+    if(!result.includes(value)){
+      othIndex = othLength
+      while(--othIndex){
+        if(!arrs[othIndex].includes(value)){
+          // 其中有一个数组不存在value
+          continue outer
+        }
+      }
+      result.push(value)
     }
   }
-  this.cache.set(key, value)
-};
-/**
- * Your LRUCache object will be instantiated and called as such:
- * var obj = new LRUCache(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
 
-// const param1 = [5, 7, 7, 8, 8, 10];
-// const param2 = 8;
-// const res = searchRange(param1, param2);
+  return result
+}
 
-// console.log("res", res);
+let arr1 = [1,2,3,4,5,6,7,8,9,10]
+let arr2 = [1,3,31,45,5,6,7,8,95,100]
+let arr3 = [1,2,13,4,5,62,7,8,9,101]
 
-// cache.put(1, 1);
-// cache.put(2, 2);
-// let res1 = cache.get(1);
-// console.log("res1",res1)
-// cache.put(3, 3);
-// const res2 =  cache.get(2)
-// console.log("res2",res2)
+let arrs  = [arr1,arr2,arr3]
+let res = getIntersection(arrs)
+console .log("res",res)
 
-// cache.put(4, 4);    // 该操作会使得密钥 1 作废
-// const res3 = cache.get(1);       // 返回 -1 (未找到)
-// console.log("res3",res3)
-// const res4 = cache.get(3);       // 返回  3
-// console.log("res4",res4)
-// const res5 =  cache.get(4);       // 返回  4
-// console.log("res5",res5)
 
-let cache = new LRUCache(2);
-cache.get(2); // -1
-cache.put(1, 1);
-cache.put(2, 2);
-cache.get(1);
-cache.put(3, 3);
-console.log(cache);
-debugger;
-const res = cache.get(2);
-console.log(cache);
-console.log(res);
+
+// let promiseArr = []
+
+// (this.selectedRowKeys).forEach(item => {
+//   param.recordId = item
+//   console.log('param', param)
+//  .then(res => {
+//   this.reloadList(false)
+//   this.handleSuccess(res)
+//   this.handleErrorMsg(res)
+//   })
+//   })
+
+  // for(let i =0;i<this.selectedRowKeys.length;i++){
+  //    let item = selectedRowKeys[i]
+  //    let params = {recordId:item}
+  //    try{
+  //     let res = await delRecord(param)
+  //     // 串行执行
+  //     // ....
+  //    }catch(e){
+  //       // 有错误
+  //       // 处理错误
+  //       // return 这样就不会执行到刷新逻辑
+  //       return
+  //    }
+  //    if(i===this.selectedRowKeys.length-1){
+  //      // 执行到最后一项
+  //      // 刷新
+  //    }
+  // }
+
+
+
+
+// function test() {
+//   try {
+//     console.log("try")
+//     throw new Error("aaa")
+//   } catch (e) {
+//     console.log("catch",e)
+//     return
+//   }
+
+//    console.log("会执行吗")
+// }
+
+// test();
+
+
+
+
+
+// function delRecord({index,...args}){
+//     // index 索引
+//     // args 其他参数
+//     return new Promise((resolve,reject)=>{
+//       resolve({
+//         index:index,
+//         // data 是请求的返回的data
+//         data:[]
+//       })
+//     })
+// }
+
+// let promiseArr = [
+//   // index 是标记的索引 代表第几条数据
+//   delRecord({index:1}),
+//   delRecord({index:2}),
+//   delRecord({index:3})
+// ]
+
+
+// Promise.all(promiseArr).then(res=>{
+//   res.forEach(item=>{
+//     console.log(`我是第 ${item.index} 条数据, 我的值是：${item.data}` )
+//   })
+// })
