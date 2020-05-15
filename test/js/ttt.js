@@ -1,43 +1,51 @@
-// function allPermute(nums, curSize, visited, record, path) {
-//   if (curSize === nums.length) {
-//     // path是引用型数据 要拷贝出来 不然path或变动 
-//     path = path.slice()
-//     record.push(path);
-//     return;
-//   }
-//   for (let i = 0; i < nums.length; i++) {
-//     if (!visited[i]) {
-//       path.push(nums[i]);
-//       visited[i] = true;
-//       allPermute(nums, curSize + 1, visited, record, path);
-//       // 回溯状态重置
-//       path.pop();
-//       visited[i] = false;
-//     }
+// class Yideng {
+//   static str = "京程一灯"
+//   // 赋值 会将其作为实例的属性
+//   sayStr = () => {
+//     throw new Error("Need to implement")
 //   }
 // }
 
-// /**
-//  * @param {number[]} nums
-//  * @return {number[][]}
-//  */
-// var permute = function (nums) {
-//   let result = [];
-//   let len = nums.length;
-//   let visited = new Array(nums.length).fill(false);
-//   let path = [];
-//   let record = [];
-//   let curSize = 0;
-//   allPermute(nums, curSize, visited, record, path);
-//   return record;
-// };
 
-// let param1 = [1, 2, 3];
-// let param2 = 2;
-// const res = permute(param1);
-// console.log("res", res);
+// class Student extends Yideng {
+//   constructor(){
+//     super()
+//   }
+
+//   // 声明的属性 放在原型链上
+//   sayStr(){
+//     console.log(Student.str)
+//   }
+// }
 
 
-let arr  = []
-arr.push(1,2,3,4,5)
-console.log(arr)
+// const laoyuan = new Student()
+// console.log(Student.str) // 京程一灯
+
+// // 先找实例的属性再去原型链找 (存在实例属性) 
+// laoyuan.sayStr()   // Error("Need to implement")
+
+
+
+
+
+class Yideng {
+  str = "京城一等"
+  static aaa="aaa"
+}
+
+const obj = new Yideng()
+console.log(obj.aaa) // undefined
+console.log(obj.constructor.aaa) //aaa
+console.log(Yideng.aaa) //aaa
+console.log(obj.constructor == Yideng) // true
+console.log(obj.__proto__ == Yideng.prototype) // true 
+debugger
+
+
+
+
+console.log(obj.str)
+console.log(obj.aaa)
+console.log(Yideng.aaa)
+console.log("obj.constructor.aaa",obj.constructor)
