@@ -1,3 +1,14 @@
+## 深度搜索(dfs)
+
+dfs多用于地图搜索
+
+我们以一道经典题目为例子
+
+[https://leetcode-cn.com/problems/word-search/](https://leetcode-cn.com/problems/word-search/)
+
+
+```js
+// 定义方向
 const direction = [
   [-1, 0],
   [0, -1],
@@ -34,18 +45,21 @@ var exist = function (board, word) {
 };
 
 function dfs(i, j, start, board, word, marked) {
-  // 走到最后 判断结束
+  // 注意 return判断放到函数最开始
+  // 走到最后 判断结束 
   if (start == word.length - 1) {
     return board[i][j] == word[start];
   }
 
   if (board[i][j] == word[start]) {
+    // 当前(i,j)坐标位置满足
     marked[i][j] = true;
-    // 4个方向
+    // 4个方向 (这里是核心)
     for (let k = 0; k < 4; k++) {
       let newX = i + direction[k][0];
       let newY = j + direction[k][1];
       if (inArea(newX, newY, board) && !marked[newX][newY]) {
+        // 在地图中 且 未搜索过
         if (dfs(newX, newY, start + 1, board, word, marked)) {
           return true;
         }
@@ -62,19 +76,25 @@ function inArea(x, y, board) {
   let n = board[0].length;
   return x >= 0 && x < m && y >= 0 && y < n;
 }
+```
 
-let board = [
-  ["A", "B", "C", "E"],
-  ["S", "F", "C", "S"],
-  ["A", "D", "E", "E"],
-];
-let word1 = "ABCCED";
-// let word2 = "SEE";
-// let word3 = "ABCB";
-const res1 = exist(board, word1);
-// const res2 = exist(board, word2);
-// const res3 = exist(board, word3);
 
-console.log("res1", res1);
-// console.log("res2", res2);
-// console.log("res3", res3);
+
+### 注意点
+
+* 方向的定义 (一般dfs中会有4个方向可搜索 for 4)
+* 递归时元素的坐标是否超过边界
+* 递归时元素是否已经搜索过 (marked数组)
+* dfs(i, j, start, board, word, marked)  
+  * start 当前搜索进度
+  * board 地图
+  * word 要搜索的东西
+  * marked 记录数组
+
+
+
+
+
+
+
+
