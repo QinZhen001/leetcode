@@ -5,33 +5,21 @@
  * @return {boolean}
  */
 var wordBreak = function (s, wordDict) {
-  let memo = new Array(s.length);
-  return word_Break(s, wordDict, 0, memo);
-};
+  let dp = new Array(s.length + 1).fill(false);
+  dp[0] = true;
 
-function word_Break(s, wordDict, start, memo) {
-  if (start === s.length) {
-    return true;
-  }
-
-  if(typeof memo[start] == "boolean"){
-    // 已经搜索过
-    return memo[start]
-  }
-
-  for (let end = start + 1; end <= s.length; end++) {
-    if (
-      wordDict.indexOf(s.substring(start, end)) > -1 &&
-      word_Break(s, wordDict, end)
-    ) {
-      return memo[start] = true;
+  for (let i = 1; i <= s.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (dp[j] && wordDict.indexOf(s.substring(j, i)) > -1) {
+        dp[i] = true;
+        break;
+      }
     }
   }
-
-  return memo[start] = false;
-}
+  return dp[s.length]
+};
 
 let s = "catsandog",
   wordDict = ["cats", "dog", "sand", "and", "cat"];
 const res = wordBreak(s, wordDict);
-console.log("res", res);
+console.log("res111", res);
