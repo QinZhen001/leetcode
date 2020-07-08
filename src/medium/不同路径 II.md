@@ -48,6 +48,8 @@
 
 ### 直接dfs (会超时)
 
+时间复杂度：O(n^m)
+
 
 
 ```js
@@ -72,7 +74,7 @@ function dfs(x, y, obstacleGrid) {
   }
 
   if (inArea(x, y, obstacleGrid) && obstacleGrid[y][x] !== 1) {
-    // 在地图内 切 没有障碍物
+    // 在地图内 且 没有障碍物
     dfs(x + 1, y, obstacleGrid);
     dfs(x, y + 1, obstacleGrid);
   }
@@ -89,6 +91,91 @@ function inArea(x, y, obstacleGrid) {
 ```
 
 
+
+
+
+
+
+### 动态规划
+
+
+
+时间复杂度：O(nm)
+
+
+
+注意：
+
+* dp默认值0
+* **初始化dp时候,我们需要初始化第一行和第一例，一旦遇到障碍物后面肯定是走不通的，也就是这条路径后面的位置对应的dp的值是0**
+* 开始位置存在障碍物时返回0
+
+
+
+```js
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+  let m = obstacleGrid.length; // 行
+  let n = obstacleGrid[0].length; // 列
+
+  if (m === 0 || n == 0) {
+    return 0;
+  }
+
+  if (obstacleGrid[0][0] === 1) {
+    // 开始位置存在障碍物
+    return 0;
+  }
+
+  // 初始化
+  let dp = new Array(m);
+  for (let i = 0; i < m; i++) {
+    dp[i] = new Array(n).fill(0);
+  }
+
+  // 初始化第一列
+  // 注意：一但出现障碍物后面的路就走不通了
+  let mFlag = false;
+  for (let i = 0; i < m; i++) {
+    if (mFlag) {
+      break;
+    }
+    if (obstacleGrid[i][0] === 0) {
+      dp[i][0] = 1;
+    } else {
+      mFlag = true;
+    }
+  }
+
+  // 初始化第一行
+  // 注意：一但出现障碍物后面的路就走不通了
+  let nFlag = false;
+  for (let i = 0; i < n; i++) {
+    if (nFlag) {
+      break;
+    }
+    if (obstacleGrid[0][i] === 0) {
+      dp[0][i] = 1;
+    } else {
+      nFlag = true;
+    }
+  }
+
+  // 动态规划
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      if (obstacleGrid[i][j] == 0) {
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+      }
+    }
+  }
+
+  return dp[m - 1][n - 1];
+};
+```
 
 
 

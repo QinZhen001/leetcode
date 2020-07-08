@@ -1,53 +1,43 @@
-// https://leetcode-cn.com/problems/unique-paths-ii/solution/bu-tong-lu-jing-ii-by-leetcode-solution-2/
-
-
-let path = 0;
+let record = [];
 /**
- * @param {number[][]} obstacleGrid
- * @return {number}
+ * @param {number} shorter
+ * @param {number} longer
+ * @param {number} k
+ * @return {number[]}
  */
-var uniquePathsWithObstacles = function (obstacleGrid) {
-  dfs(0, 0, obstacleGrid);
-  let finalPath = path;
-  path = 0;
-  return finalPath;
+var divingBoard = function (shorter, longer, k) {
+  let arr = [shorter, longer];
+  for (let i = 0; i < arr.length; i++) {
+    dfs(arr[i], 1, arr, k);
+  }
+  let finalRecord = record.slice();
+  record = [];
+  return finalRecord;
 };
 
-function dfs(x, y, obstacleGrid) {
-  let m = obstacleGrid.length; // 行
-  let n = obstacleGrid[0].length; // 列
-
-  if (!inArea(x, y, obstacleGrid)) {
+function dfs(len, index, arr, targetIndex) {
+  // targetIndex 可能为0 也就是0块木板
+  if (index > targetIndex) {
     return;
   }
 
-  if (obstacleGrid[y][x] === 1) {
+  if (index === targetIndex) {
+    // 已经取了k块木板了
+    if (record.indexOf(len) === -1) {
+      // 还未记录
+      record.push(len);
+    }
     return;
   }
 
-  if (x == n - 1 && y == m - 1) {
-    path++;
+  for (let i = 0; i < arr.length; i++) {
+    dfs(len + arr[i], index + 1, arr, targetIndex);
   }
-
-  // 在地图内 切 没有障碍物
-  dfs(x + 1, y, obstacleGrid);
-  dfs(x, y + 1, obstacleGrid);
 }
 
-function inArea(x, y, obstacleGrid) {
-  let m = obstacleGrid.length; // 行
-  let n = obstacleGrid[0].length; // 列
+const parma1 = 1;
+const parma2 = 1;
+const parma3 = 100000;
 
-  return x >= 0 && y >= 0 && x < n && y < m;
-}
-
-// const parma1 = [
-//   [0, 0, 0],
-//   [0, 1, 0],
-//   [0, 0, 0],
-// ];
-
-const parma1 = [[1]];
-
-const res = uniquePathsWithObstacles(parma1);
+const res = divingBoard(parma1, parma2, parma3);
 console.log("res", res);
