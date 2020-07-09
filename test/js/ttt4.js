@@ -1,43 +1,37 @@
-let record = [];
 /**
- * @param {number} shorter
- * @param {number} longer
- * @param {number} k
- * @return {number[]}
+ * @param {string[]} dictionary
+ * @param {string} sentence
+ * @return {number}
  */
-var divingBoard = function (shorter, longer, k) {
-  let arr = [shorter, longer];
-  for (let i = 0; i < arr.length; i++) {
-    dfs(arr[i], 1, arr, k);
+var respace = function (dictionary, sentence) {
+  let len = sentence.length;
+  let dp = new Array(len + 1).fill(0);
+  dictionary = new Set(dictionary)
+
+
+  for (let i = 1; i <= len; i++) {
+    dp[i] = dp[i - 1] + 1;
+    for (let idx = 0; idx < i; idx++) {
+      if (dictionary.has(sentence.slice(idx, i))) {
+        dp[i] = Math.min(dp[i], dp[idx]);
+      }
+    }
   }
-  let finalRecord = record.slice();
-  record = [];
-  return finalRecord;
+
+  return dp[len]
 };
 
-function dfs(len, index, arr, targetIndex) {
-  // targetIndex 可能为0 也就是0块木板
-  if (index > targetIndex) {
-    return;
-  }
+const parma1 = ["looked", "just", "like", "her", "brother"];
+const parma2 = "jesslookedjustliketimherbrother";
+const parma3 = 3;
 
-  if (index === targetIndex) {
-    // 已经取了k块木板了
-    if (record.indexOf(len) === -1) {
-      // 还未记录
-      record.push(len);
-    }
-    return;
-  }
-
-  for (let i = 0; i < arr.length; i++) {
-    dfs(len + arr[i], index + 1, arr, targetIndex);
-  }
-}
-
-const parma1 = 1;
-const parma2 = 1;
-const parma3 = 100000;
-
-const res = divingBoard(parma1, parma2, parma3);
+const res = respace(parma1, parma2, parma3);
 console.log("res", res);
+
+// let parma = "jesslookedjustliketimherbrother";
+// let rrr =  parma.split("")
+// rrr.splice(-7)
+// rrr = rrr.join("")
+// console.log(rrr)
+// debugger
+// console.log("res",rrr)
