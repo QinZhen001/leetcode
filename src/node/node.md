@@ -71,3 +71,44 @@
 
 
 
+
+
+
+
+### 数组循环时删除元素
+
+
+
+有时候我们在数组循环的时候去删除元素，可能导致部分元素没有循环到
+
+
+
+所以，当我们在循环中删除元素后，要保持下标不变
+
+
+
+
+
+```js
+var intersect = function (nums1, nums2) {
+  let res = [];
+  for (let i = 0; i < nums1.length; i++) {
+    let target = nums1[i];
+    let index = nums2.indexOf(target);
+    if (index > -1) {
+      res.push(target);
+      nums1.splice(index, 1);
+      nums2.splice(index, 1);
+      // 注意这里  
+      i--;
+    }
+  }
+
+  return res;
+};
+```
+
+
+
+
+
