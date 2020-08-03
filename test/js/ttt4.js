@@ -1,31 +1,41 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {string}
  */
-var findMagicIndex = function (nums) {
-  return getAnswer(nums, 0, nums.length - 1);
+var largestNumber = function (nums) {
+  nums.sort((num1, num2) => {
+    num1 = num1.toString();
+    num2 = num2.toString();
+
+    let res1 = Number(num1 + num2);
+    let res2 = Number(num2 + num1);
+
+    return res1 > res2 ? -1 : 1;
+  });
+
+  // debugger
+  // console.log(nums);
+
+  // 或者以0开头的话就返回0
+  // if(nums[0] == 0){
+  //   return '0'
+  // }
+
+  // 处理[0,0,...]的情况 (有多个0的情况)
+  nums = nums.join("");
+  return nums.replace(/^0+/, "0");
 };
 
-function getAnswer(nums, left, right) {
- if(left > right){
-   return -1 
- }
-
-  let middle = left + parseInt((right - left) / 2);
-  let leftAnswer  = getAnswer(nums, left, middle - 1)
-  if(leftAnswer !== -1){
-    // 在左边找到了答案
-    return leftAnswer
-  }else if(nums[middle] === middle){
-    // 中间是答案
-    return middle
-  }
-  return getAnswer(nums, middle + 1, right);
-}
-
-const parma1 = [0, 2, 3, 4, 5]
-const parma2 = 1;
+const parma1 = 
+[824, 938, 1399, 5607, 6973, 5703, 9609, 4398, 8247];;
+const parma2 = 8;
 const parma3 = 3;
 
-const res = findMagicIndex(parma1, parma2, parma3);
-console.log("res", res);
+const res = largestNumber(parma1, parma2, parma3);
+console.log("res", res, typeof res);
+
+// let aaa = [0,1,0,0]
+// if(aaa[1]){
+//   console.log(111)
+//   debugger
+// }
