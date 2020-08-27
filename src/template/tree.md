@@ -128,6 +128,12 @@ class TreeNode {
 
 
 
+> inorderTree 中序遍历一般用于遍历搜索二叉树
+
+
+
+
+
 
 ### 从上到下打印二叉树 (BFC)
 
@@ -196,13 +202,9 @@ class TreeNode {
 只需要将arr反转即可
 
 
-### 前缀树 (Trie)
 
 
-
-
-
-
+### 前缀树 (TrieTree)
 
 
 

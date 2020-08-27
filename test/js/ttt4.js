@@ -1,41 +1,121 @@
+// https://leetcode-cn.com/problems/binary-search-tree-iterator/
+
+class TreeNode {
+  left;
+  right;
+
+  constructor(value) {
+    this.val = value;
+  }
+}
+
+//搜索二叉树
+class BinarySearchTree {
+  constructor(root) {
+    if (typeof root === "number") {
+      root = new TreeNode(root);
+    }
+    this.root = root;
+  }
+
+  insert(key) {
+    if (!key) {
+      // key 为 null
+      return;
+    }
+    if (typeof key === "number") {
+      key = new TreeNode(key);
+    }
+    if (!this.root) {
+      this.root = key;
+    } else {
+      this._insertNode(this.root, key);
+    }
+  }
+
+  _insertNode(root, node) {
+    if (node.val < root.val) {
+      // node的值小 往左边插入
+      if (root.left) {
+        this._insertNode(root.left, node);
+      } else {
+        root.left = node;
+      }
+    } else {
+      // node的值大 往右边插入
+      if (root.right) {
+        this._insertNode(root.right, node);
+      } else {
+        root.right = node;
+      }
+    }
+  }
+}
+
+// ------------------------------------------------
+
+// 我们拿一个数组来测试二叉搜索树
+let arr = [5, 3, 6, 2, 4, 2, 3, 1];
+let root = new BinarySearchTree();
+
+for (let item of arr) {
+  root.insert(item);
+}
+
+// console.log("root",root);
+// console.log("root",root.root.val);
+// debugger;
+
+function inorder(node, list) {
+  if (node) {
+    inorder(node.left, list);
+    list.push(node.val);
+    inorder(node.right, list);
+  }
+}
+
 /**
- * @param {number[]} nums
- * @return {string}
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
  */
-var largestNumber = function (nums) {
-  nums.sort((num1, num2) => {
-    num1 = num1.toString();
-    num2 = num2.toString();
-
-    let res1 = Number(num1 + num2);
-    let res2 = Number(num2 + num1);
-
-    return res1 > res2 ? -1 : 1;
-  });
-
-  // debugger
-  // console.log(nums);
-
-  // 或者以0开头的话就返回0
-  // if(nums[0] == 0){
-  //   return '0'
-  // }
-
-  // 处理[0,0,...]的情况 (有多个0的情况)
-  nums = nums.join("");
-  return nums.replace(/^0+/, "0");
+/**
+ * @param {TreeNode} root
+ */
+var BSTIterator = function (root) {
+  let list = [];
+  inorder(root, list);
+  this.list = list;
+  this.index = 0
+  console.log(this.list)
 };
 
-const parma1 = 
-[824, 938, 1399, 5607, 6973, 5703, 9609, 4398, 8247];;
-const parma2 = 8;
-const parma3 = 3;
+/**
+ * @return the next smallest number
+ * @return {number}
+ */
+BSTIterator.prototype.next = function () {
+  if (this.hasNext()) {
+    return this.list[this.index++]
+  }
+};
 
-const res = largestNumber(parma1, parma2, parma3);
-console.log("res", res, typeof res);
+/**
+ * @return whether we have a next smallest number
+ * @return {boolean}
+ */
+BSTIterator.prototype.hasNext = function () {
+  return this.index < this.list.length
+};
 
-// let aaa = [0,1,0,0]
-// if(aaa[1]){
-//   console.log(111)
-//   debugger
-// }
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * var obj = new BSTIterator(root)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
+ */
+
+var obj = new BSTIterator(root.root);
+console.log("obj", obj);
