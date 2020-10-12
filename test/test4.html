@@ -22,37 +22,7 @@
     </div>
     <script src="./js/ttt4.js"></script>
     <script>
-      class TreeNode {
-        value
-        left
-        right
-
-        constructor(value) {
-          this.val = value
-        }
-
-        set(value) {
-          this.val = value
-        }
-      }
-
-      var createTree = function (nums, index) {
-        let tn = null
-        if (index < nums.length) {
-          let value = nums[index]
-          if (!value) {
-            return null
-          }
-          tn = new TreeNode(value)
-          tn.left = createTree(nums, 2 * index + 1)
-          tn.right = createTree(nums, 2 * index + 2)
-          return tn
-        }
-        return tn
-      }
-
-      // let param1 = [3, 9, 20, null, null, 15, 7]
-      // let res = createTree(param1, 0)
+   
     </script>
   </body>
 </html>
