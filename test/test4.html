@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .item1 {
+        height: 1000px;
+        background-color: rebeccapurple;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <style>
-    .item1 {
-      height: 1000px;
-      background-color: rebeccapurple;
-    }
-  </style>
-</head>
+  <body>
+    <div>
+      1111
+      <p>12312313</p>
+      <div class="item1"></div>
+      <div class="item" aaa="aaa" id="asda" cc="ccc">click</div>
+      <div class="item1"></div>
+    </div>
+    <script src="./js/ttt4.js"></script>
+    <script>
+      class TreeNode {
+        value
+        left
+        right
 
-<body>
-  <div>
-    1111
-    <p>12312313</p>
-    <div class="item1"></div>
-    <div class="item" aaa="aaa" id="asda" cc="ccc">click</div>
-    <div class="item1"></div>
-  </div>
-  <!-- <script src="./js/ttt4.js"></script>
-  <script>
-    let aaa = {
-      1: 2,
-      2: 5,
-      3: 6
-    }
-    
-    console.log(111,aaa.name)
+        constructor(value) {
+          this.val = value
+        }
 
-  </script> -->
-</body>
+        set(value) {
+          this.val = value
+        }
+      }
 
+      var createTree = function (nums, index) {
+        let tn = null
+        if (index < nums.length) {
+          let value = nums[index]
+          if (!value) {
+            return null
+          }
+          tn = new TreeNode(value)
+          tn.left = createTree(nums, 2 * index + 1)
+          tn.right = createTree(nums, 2 * index + 2)
+          return tn
+        }
+        return tn
+      }
+
+      // let param1 = [3, 9, 20, null, null, 15, 7]
+      // let res = createTree(param1, 0)
+    </script>
+  </body>
 </html>

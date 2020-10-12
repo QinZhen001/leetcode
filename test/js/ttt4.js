@@ -65,78 +65,60 @@ class Node {
 }
 
 /**
- * @param {string} kingName
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
  */
-var ThroneInheritance = function (kingName) {
-  this.kingName = kingName;
-  let node = new Node({
-    name: kingName,
-  });
-  this.tree = new Tree(node);
-};
-
-/**
- * @param {string} parentName
- * @param {string} childName
- * @return {void}
- */
-ThroneInheritance.prototype.birth = function (parentName, childName) {
-  const node = this.tree.find(parentName);
-  const child = new Node({
-    name: childName,
-    parent: node,
-  });
-  if (node) {
-    node.addChild(child);
+var longestSubstring = function (s, k) {
+  if (k == 1) {
+    return s.length
   }
-};
+  let dp = new Array(s.length)
+  for (let i = 0; i < s.length; i++) {
+    dp[i] = new Array(s.length).fill(0)
+  }
 
-/**
- * @param {string} name
- * @return {void}
- */
-ThroneInheritance.prototype.death = function (name) {
-  const node = this.tree.find(name);
-  const parent = node.parent;
-  for (let i = 0; i < parent.children.length; i++) {
-    let child = parent.children[i];
-    if (child === node) {
-      parent.children.splice(i, 1);
-      return;
+  // dp[i][j]  i位置开头j位置结尾
+  for (let i = 0; i < s.length; i++) {
+    for (let j = i; j < s.length; j++) {
+      dp[i][j] = getMap(s.slice(i, j + 1))
     }
   }
-};
 
-/**
- * @return {string[]}
- */
-ThroneInheritance.prototype.getInheritanceOrder = function () {
-  return this.tree.print();
-};
+  // console.log(dp)
+  let max = 0
+  for (let i = 0; i < s.length; i++) {
+    for (let j = i; j < s.length; j++) {
+      let map = dp[i][j]
+      const list = Object.keys(map)
+      console.log(list)
+      // console.log(map)
+      let flag = list.every((key) => map[key] >= k)
+      // console.log(i, j, flag)
+      if (flag) {
+        let num = j - i + 1
+        if (num > max) {
+          max = num
+        }
+      }
+    }
+  }
+  return max
+}
 
-/**
- * Your ThroneInheritance object will be instantiated and called as such:
- * var obj = new ThroneInheritance(kingName)
- * obj.birth(parentName,childName)
- * obj.death(name)
- * var param_3 = obj.getInheritanceOrder()
- */
+function getMap(str) {
+  let obj = {}
+  for (let key of str) {
+    if (!obj[key]) {
+      obj[key] = 1
+    } else {
+      obj[key]++
+    }
+  }
+  return obj
+}
 
-let t = new ThroneInheritance("king"); // 继承顺序：king
-t.birth("king", "andy"); // 继承顺序：king > andy
-t.birth("king", "bob"); // 继承顺序：king > andy > bob
-t.birth("king", "catherine"); // 继承顺序：king > andy > bob > catherine
-t.birth("andy", "matthew"); // 继承顺序：king > andy > matthew > bob > catherine
-t.birth("bob", "alex"); // 继承顺序：king > andy > matthew > bob > alex > catherine
-t.birth("bob", "asha"); // 继承顺序：king > andy > matthew > bob > alex > asha > catherine
-
-console.log(t.tree);
-// debugger;
-
-t.getInheritanceOrder(); // 返回 ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"]
-
-t.death("bob"); // 继承顺序：king > andy > matthew > bob（已经去世）> alex > asha > catherine
-
-console.log(t.tree);
-t.getInheritanceOrder(); // 返回 ["king", "andy", "matthew", "alex", "asha", "catherine"]
-
+const s = 'ababbc',
+  k = 2
+const res = longestSubstring(s, k)
+console.log('res', res)
