@@ -95,3 +95,62 @@ console.log(res4) // undefined
 
 
 
+### {}字符串解析
+
+```js
+var a = {
+  b: 123,
+  c: "456",
+  e: "789",
+};
+var str = `a{a.b}aa{a.c}aa {a.d}aaaa`;
+// => 'a123aa456aa {a.d}aaaa'
+
+transform(str, a);
+
+
+// --------------------------------------------------------------------
+
+function transform(str, obj) {
+  let flag = false;
+  let arr = [];
+  let module = "";
+  for (let item of str) {
+    if (item == "}") {
+      arr.push(module);
+      module = "";
+      flag = false;
+    }
+    if (flag) {
+      module += item;
+    }
+    if (item == "{") {
+      flag = true;
+    }
+  }
+
+  arr = arr.map((item) => {
+    item = item.split(".").slice(1);
+    let res = ''
+    let copy = obj 
+    item.forEach(key => {
+      res = copy[key]
+    });
+    return res 
+  });
+
+  let index = 0 
+  str =  str.replace(/{\S+?}/g,(match)=>{
+    if(arr[index]){
+      return arr[index++]
+    }
+    return ''
+  })
+  console.log(str)
+  return str
+}
+
+```
+
+
+
