@@ -1,12 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>asd</title>
 </head>
+
 <body>
-  asd
+  <div>
+    <label for="userAgent">userAgent:</label>
+    <span id="userAgent"></span>
+  </div>
+  <div>
+    <label for="touchstart">touchstart:</label>
+    <span id="touchstart"></span>
+  </div>
+  <div>
+    <label for="touchend">touchend:</label>
+    <span id="touchend"></span>
+  </div>
+  <div>
+    <label for="click">click:</label>
+    <span id="click"></span>
+  </div>
+  <div>
+    <label for="diffClickTouchend">diff click - touchend:</label>
+    <span id="diffClickTouchend"></span>
+  </div>
+  <div>
+    <div id="test">test</div>
+    <div id="diff">diff</div>
+  </div>
+
 </body>
-<script src="./js/asd.js"></script>
+
+<script>
+    let TEST_NAME =   Symbol('test name')
+
+    class Test {
+      constructor(){
+        this[TEST_NAME]()
+      }
+      [TEST_NAME](){
+        console.log('aaaa')
+      }
+    }
+
+
+    const t = new Test()
+    t[TEST_NAME]()
+</script>
+
+
 </html>

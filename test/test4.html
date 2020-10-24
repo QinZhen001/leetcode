@@ -5,26 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .item1 {
-        height: 1000px;
-        background-color: rebeccapurple;
+      .parent{
+        width: 500px;
+        height: 500px;
+        background: red;
+        position: relative;
+        padding: 10px;
+      }
+
+      .item1{
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: salmon;
+      }
+
+      .item2{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: darkblue;
       }
     </style>
   </head>
 
   <body>
     <div>
-      1111
-      <p>12312313</p>
-      <div class="item1"></div>
-      <div class="item" aaa="aaa" id="asda" cc="ccc">click</div>
-      <div class="item1"></div>
+       <div class="parent">
+          <div class="item1"></div>
+          <div class="item2"></div>
+       </div>
     </div>
     <script src="./js/ttt4.js"></script>
-    <script>
-      // let str = '12345'
-      // const res = str.slice(0,-1)
-      // console.log(res)
     </script>
   </body>
 </html>

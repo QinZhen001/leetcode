@@ -1,15 +1,26 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode} node
- * @return {void} Do not return anything, modify node in-place instead.
- */
-var deleteNode = function (node) {
-  node.next = node.next.next;
-  node = node.next;
-};
+
+class myPromise{
+  constructor(fn){
+    this
+  }
+
+  then(){
+
+  }
+
+  finally(){
+    
+  }
+}
+
+
+const test = () => new Promise((resolve,reject)=>{
+  resolve(111)
+})
+
+let p =  test()
+p.then(res=>{
+  console.log(res)
+}).finally(()=>{
+  console.log('finally')
+})
