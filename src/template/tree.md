@@ -67,7 +67,57 @@ class TreeNode {
 
 
 
+### 遍历
+
+**注意点:在遍历的过程中一定要判断当前node节点是否存在，存在才继续逻辑**
+
+**注意点:在遍历的过程中一定要判断当前node节点是否存在，存在才继续逻辑**
+
+**注意点:在遍历的过程中一定要判断当前node节点是否存在，存在才继续逻辑**
+
+
+
+### 前序遍历
+
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function (root) {
+  const arr = []
+  let traversal = (root) => {
+    // 当前节点不存在 结束当前递归的逻辑  
+    if (!root) {
+      return
+    }
+    root.val && arr.push(root.val)
+    root.left && traversal(root.left)
+    root.right && traversal(root.right)
+  }
+  traversal(root)
+  return arr
+}
+
+```
+
+
+
+
+
+
+
 ### 中序遍历
+
+
 
 
 #### 递归形式
