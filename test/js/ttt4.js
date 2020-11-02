@@ -1,54 +1,29 @@
-// class myPromise{
-//   constructor(fn){
-//     this
-//   }
-
-//   then(){
-
-//   }
-
-//   finally(){
-
-//   }
-// }
-
-// const test = () => new Promise((resolve,reject)=>{
-//   resolve(111)
-// })
-
-// let p =  test()
-// p.then(res=>{
-//   console.log(res)
-// }).finally(()=>{
-//   console.log('finally')
-// })
-
-/**
- * @param {number[]} nums
- * @return {number[]}
- */
-var smallerNumbersThanCurrent = function (nums) {
-  let temp = nums.slice()
-  nums.sort((a, b) => a - b)
-  let map = new Map()
-  let res = []
-  for (let i = 0; i < nums.length; i++) {
-    let item = nums[i]
-    if (!map.has(item)) {
-      map.set(item,i)
-    }
-  }
-  for(let item of temp){
-    res.push(map.get(item))
-  }
-
-  return res
+function swap(arr,i,j){
+  [arr[i],arr[j]] = [arr[j],arr[i]] 
 }
 
-const nums = [6, 5, 4, 8]
-const res =  smallerNumbersThanCurrent(nums)
-console.log(res)
 
-// let arr = [1, 10, 111, 43, 20, 30, 22]
-// arr.sort((a, b) => a - b)
-// console.log(arr)
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var smallestK = function(arr, k) {
+  for(let i=0;i<k;i++){
+    for(let j=i+1;j<arr.length;j++){
+      if(arr[i]>arr[j]){
+        swap(arr,i,j)
+      }
+    }
+  }
+  return arr.slice(0,k)
+};
+
+let  arr = [1,3,5,7,2,4,6,8], k = 4
+const res =  smallestK(arr,k)
+console.log("res",res)
+
+
+// let arr = [1,2,3,4,5]
+// swap(arr,2,3)
+// console.log("arr",arr)
