@@ -92,3 +92,7 @@ lazy3.forEach((v) => {
 
 // 上一条语句执行时，不会立刻产生「consume lazy3 ...」这样的输出
 // 所有「consume lazy3 ...」这样的输出将在 500 毫秒之后产生
+
+
+
+console.log(1111)
