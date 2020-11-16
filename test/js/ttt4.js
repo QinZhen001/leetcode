@@ -98,3 +98,8 @@ lazy3.forEach((v) => {
 console.log(1111)
 
 console.log(222)
+
+console.log(33333)
+
+
+
