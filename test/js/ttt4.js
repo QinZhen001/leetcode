@@ -101,12 +101,8 @@ console.log(222)
 
 console.log(33333)
 
-console.log(4444)
-
-console.log(55555)
 
 
-console.log(66666)
 
 
 
