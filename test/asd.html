@@ -1,52 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>asd</title>
-  </head>
 
-  <body>
-    <div>
-      1111111
-      <label for="userAgent">userAgent:</label>
-      <span id="userAgent"></span>
-    </div>
-    <div>
-      <label for="touchstart">touchstart:</label>
-      <span id="touchstart"></span>
-    </div>
-    <div>
-      <label for="touchend">touchend:</label>
-      <span id="touchend"></span>
-    </div>
-    <div>
-      <label for="click">click:</label>
-      <span id="click"></span>
-    </div>
-    <div>
-      <label for="diffClickTouchend">diff click - touchend:</label>
-      <span id="diffClickTouchend"></span>
-    </div>
-    <div>
-      <div id="test">test</div>
-      <div id="diff">diff</div>
-    </div>
-  </body>
-
-  <script>
-    let TEST_NAME = Symbol('test name')
-
-    class Test {
-      constructor() {
-        this[TEST_NAME]()
-      }
-      [TEST_NAME]() {
-        console.log('aaaa')
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>asd</title>
+  <style>
+    .progress {
+      position: relative;
+      display: inline-block;
+      width: 500px;
+      height: 10px;
+      /* background: linear-gradient(130deg, red 50%, transparent 50%,transparent 100%); */
+      background: red;
     }
 
-    const t = new Test()
-    t[TEST_NAME]()
-  </script>
+    .progress:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0px;
+      width: 10px;
+      height: 100%;
+      background: linear-gradient(135deg, #FFB60D 50%, transparent 50%, transparent 100%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress"></div>
+</body>
+
+<script>
+    let aaa = undefined
+    
+    const num = aaa.toString()
+    console.log(num)
+</script>
+
 </html>

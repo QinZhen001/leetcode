@@ -1,65 +1,60 @@
-const obj = {
-  foo: {
-    name: 'foo',
-    bar: {
-      name: 'bar',
-      baz: {
-        name: 'baz',
-        aChild: null, //待会让它指向obj.foo
-      },
-    },
-  },
-}
-obj.foo.bar.baz.aChild = obj.foo
-// foo->bar->baz->aChild->foo 形成环
+const directions = [
+  [0, 1],
+  [1, 0],
+  [0, -1],
+  [-1, 0],
+]
 
-
-function deepClone(obj,map = new WeakMap()){
-  if(typeof obj !== 'object') {
-    return obj
-  }  
-  if(map.get(obj)){
-    return map.get(obj)
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function (matrix) {
+  const list = []
+  if (!matrix || !matrix.length) {
+    return list
   }
-  let cloneObj =  Array.isArray(obj) ? [] : {} 
-  map.set(obj,cloneObj)
-  for(let key in obj){
-    cloneObj[key] = deepClone(obj[key],map)
+  // 行
+  const rows = matrix.length
+  // 列
+  const columns = matrix[0].length
+  const total = rows * columns
+  const visited = new Array(rows) // 记录已经走过的路径
+  for (let i = 0; i < visited.length; i++) {
+    visited[i] = new Array(columns).fill(false)
   }
-  return cloneObj
+  let row = 0
+  let column = 0
+  // 关键点
+  let directionIndex = 0
+
+  for (let i = 0; i < total; i++) {
+    list.push(matrix[row][column])
+    visited[row][column] = true
+    let nextRow = row + directions[directionIndex][0]
+    let nextColumn = column + directions[directionIndex][1]
+    if (
+      nextRow < 0 ||
+      nextRow >= rows ||
+      nextColumn < 0 ||
+      nextColumn >= columns ||
+      visited[nextRow][nextColumn] // 
+    ) {
+      console.log(row,column)
+      debugger
+      directionIndex = (directionIndex + 1) % 4
+    }
+    row = row + directions[directionIndex][0]
+    column = column + directions[directionIndex][1]
+  }
+  // console.log('list', list)
+  return list
 }
 
-
-let res  = deepClone(obj)
-console.log(res)
-console.log(res)
-console.log(res)
-console.log(res)
-
-
-
-
-// TypeError: cyclic object value
-// let res =  JSON.parse(JSON.stringify(obj))
-
-// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-// https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
-// 解决：
-
-// const seen = [] 
-// let res = JSON.parse(
-//   JSON.stringify(obj, (key, value) => {
-//     if (typeof value === 'object' && value !== null) {
-//       if (seen.indexOf(value) !== -1) {
-//         // 已存在 变为空指针
-//         return null
-//       }
-//       seen.push(value);
-//     }
-//     return value
-//   })
-// )
-// console.log(res)
-
-
-console.log("master 分支向前推进")
+let parmas = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]
+const res = spiralOrder(parmas)
+console.log('res', res)

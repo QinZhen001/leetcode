@@ -5,17 +5,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
+  <style>
+    /* body{overflow:hidden;} */
+
+    #outer {
+      margin: 100px 50px;
+      background: url(http://images.cnblogs.com/cnblogs_com/wenruo/873448/o_esdese.jpg);
+      height: 100px;
+      width: 50px;
+      padding: 10px 50px;
+      overflow: scroll;
+    }
+
+    #inner {
+      height: 200px;
+      width: 50px;
+      background-color: #d0ffe3;
+    }
+  </style>
 </head>
 
-<body></body>
-<script>
-/**
- * @param {number[]} nums
- * @return {void} Do not return anything, modify nums in-place instead.
- */
- var moveZeroes = function(nums) {
+<body>
+  <div id="outer">
+    <div id="inner"></div>
+  </div>
+</body>
 
-};
+<script>
+  const outer = document.getElementById('outer')
+  const inner = document.getElementById('inner')
+  
+  setInterval(() => {
+    console.log(outer.scrollTop)
+  }, 2000);
 </script>
 
 </html>
