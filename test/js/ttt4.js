@@ -1,119 +1,52 @@
-// function myPromise(executor) {
-//   let self = this
-//   self.status = 'pending'
-//   self.success = undefined
-//   self.error = undefined
-
-//   self.onSuccessCallbacks = []
-//   self.onErrorCallbacks = []
-
-//   function resolve(success) {
-//     if (self.status == 'pending') {
-//       self.status = 'resolved'
-//       self.success = success
-//       self.onSuccessCallbacks.forEach((element) => {
-//         element()
-//       })
-//     }
-
-//     function reject(error) {
-//       if (self.status == 'pending') {
-//         self.status = 'rejected'
-//         self.error = error
-//         self.onErrorCallbacks.forEach((element) => element())
-//       }
-//     }
-
-//     try {
-//       executor(resolve, reject)
-//     } catch (err) {
-//       reject(err)
-//     }
-//   }
-// }
-
-// myPromise.prototype.then = function (onResolved, onRejected) {
-//   let self = this
-//   let promseAgain = new myPromise((resolve, reject) => {
-//     if (self.status == 'pending') {
-//       self.onSuccessCallbacks.push(() => {
-//         let x = onResolved(self.success)
-//         resolvePromise(promseAgain, x, resolve, reject)
-//       })
-//       self.onErrorCallbacks.push(() => {
-//         let x = onRejected(self.error)
-//         resolvePromise(promseAgain, x, resolve, reject)
-//       })
-//     }
-
-//     if (self.status === 'resolved') {
-//       let x = onResolved(self.success)
-//       resolvePromise(promseAgain, x, resolve, reject)
-//     }
-//     if (self.status === 'rejected') {
-//       let x = onRejected(self.error)
-//       resolvePromise(promseAgain, x, resolve, reject)
-//     }
-//   })
-//   return promiseAgain
-// }
-
-// function resolvePromise(promseAgain, x, resolve, reject) {
-//   if (promseAgain === x) {
-//     return reject(new Error('循环调用'))
-//   }
-//   if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
-//     try {
-//       let then = x.then
-//       if (typeof then === 'function') {
-//         then.call(
-//           x,
-//           (y) => {
-//             resolvePromise(promiseAgain, y, resolve, reject)
-//           },
-//           (e) => {
-//             reject(e)
-//           }
-//         )
-//       } else {
-//         resolve(x)
-//       }
-//     } catch (err) {
-//       reject(err)
-//     }
-//   }
-// }
-
-function isPromise(ret) {
-  return (ret && typeof ret.then === 'function' && typeof ret.catch === "function")
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function (head) {
+  if (!head || !head.next) {
+    return head
+  }
+  
+  let pre = head 
+  let current = pre.next
+  pre.next = null 
+  while (current.next) {
+    const temp = current.next
+    current.next = pre
+    current = temp 
+    pre = current
+  }
+  current.next = 
+  console.log('head', current)
 }
 
-
-function registerActionHandle(fn){
-  debugger
-  let ret = fn.apply(this)
-  if(isPromise(fn)){
-    return fn.catch(customHandleError)
-  }else{
-    return fn
+class ListNode {
+  constructor(val) {
+    this.val = val
+    this.next = null
   }
 }
 
-function customHandleError(err){
-  debugger
-  console.log('我是一个自定义错误处理机器',err)
+function creatList(arr = []) {
+  const head = new ListNode(arr[0])
+  let current = head
+  for (let i = 1; i < arr.length; i++) {
+    const node = new ListNode(arr[i])
+    current.next = node
+    current = current.next
+  }
+
+  return head
 }
 
-// -------------  test -------------
-
-// test未捕获错误
-function test(){
-  return new Promise((resolve,reject)=>{
-    throw Error("err") 
-  })
-}
-
-// newTest 捕获了错误
-const newTest =  registerActionHandle(test)
-newTest()
-
+const arr = [1, 2, 3, 4, 5]
+const head = creatList(arr)
+const res = reverseList(head)
+console.log('res', res)

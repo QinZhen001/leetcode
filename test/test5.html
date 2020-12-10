@@ -9,19 +9,20 @@
     /* body{overflow:hidden;} */
 
     #outer {
-      margin: 100px 50px;
+      height: 500vh;
+      /* margin: 100px 50px;
       background: url(http://images.cnblogs.com/cnblogs_com/wenruo/873448/o_esdese.jpg);
       height: 100px;
       width: 50px;
       padding: 10px 50px;
-      overflow: scroll;
+      overflow: scroll; */
     }
 
-    #inner {
+    /* #inner {
       height: 200px;
       width: 50px;
       background-color: #d0ffe3;
-    }
+    } */
   </style>
 </head>
 
@@ -32,12 +33,16 @@
 </body>
 
 <script>
-  const outer = document.getElementById('outer')
-  const inner = document.getElementById('inner')
-  
-  setInterval(() => {
-    console.log(outer.scrollTop)
-  }, 2000);
+  function test() {
+    return new Promise((resolve, reject) => {
+      return resolve(true)
+      console.log(1111)
+    })
+  }
+
+  test().then(res => {
+    console.log('res', res)
+  })
 </script>
 
 </html>
