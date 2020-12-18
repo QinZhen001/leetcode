@@ -1,51 +1,21 @@
 /**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
  */
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var reverseList = function (head) {
-  if (!head || !head.next) {
-    return head
+var findTheDifference = function (s, t) {
+  s = s.split('').sort((a, b) => a.charCodeAt() - b.charCodeAt())
+  t = t.split('').sort((a, b) => a.charCodeAt() - b.charCodeAt())
+
+  for(let i=0;i<t.length;i++){
+    if(s[i] !== t[i]){
+      return t[i]
+    }
   }
 
-  let pre = head
-  let current = pre.next
-  pre.next = null
-  while (current.next) {
-    const temp = current.next
-    current.next = pre
-    current = temp
-    pre = current
-  }
-  current.next = console.log('head', current)
 }
 
-class ListNode {
-  constructor(val) {
-    this.val = val
-    this.next = null
-  }
-}
-
-function creatList(arr = []) {
-  const head = new ListNode(arr[0])
-  let current = head
-  for (let i = 1; i < arr.length; i++) {
-    const node = new ListNode(arr[i])
-    current.next = node
-    current = current.next
-  }
-
-  return head
-}
-
-const arr = [1, 2, 3, 4, 5]
-const head = creatList(arr)
-const res = reverseList(head)
+const param1 = 'abcd'
+const param2 = 'abcde'
+const res = findTheDifference(param1, param2)
 console.log('res', res)

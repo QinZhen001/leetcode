@@ -1,65 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .parent {
-        width: 500px;
-        height: 500px;
-        background: rebeccapurple;
-        /* float: left; */
-      }
-      .child-1 {
-        margin: 10px;
-      }
-      .child-2 {
-        margin: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="parent">
-      <div class="child-1">111</div>
-      <div class="child-2">222</div>
-      <div class="child-3">333</div>
-    </div>
-  </body>
-  <script>
-    /**
-     * @param {number[]} piles
-     * @param {number} H
-     * @return {number}
-     */
-    var minEatingSpeed = function (piles, H) {
-      let left = 1
-      let right = Math.pow(10, 9)
-      console.log(left, right)
-      while (left <= right) {
-        let middle = left + Math.floor((right - left) / 2) // 30 30 31
-        console.log(left, middle, right)
-        if (!isAble(piles, H, middle)) {
-          left = middle + 1
-        } else {
-          right = middle - 1
-        }
-      }
-      return left
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .p1 {
+      font-size: 16px;
+      line-height: 32px;
     }
 
-    function isAble(piles, h, k) {
-      let total = 0
-      for (item of piles) {
-        let num = Math.ceil(item / k)
-        total += num
-      }
-      return total <= h
+    .s1 {
+      font-size: 2em;
     }
 
-    const param1 = [30, 11, 23, 4, 20]
-    const param2 = 5
-    const res = minEatingSpeed(param1, param2)
-    console.log('res', res)
-  </script>
+    .s2 {
+      font-size: 2em;
+      line-height: 2em;
+    }
+
+    .p2 {
+      font-size: 16px;
+      line-height: 2;
+    }
+
+    .s5 {
+      font-size: 2em;
+    }
+
+    .s6 {
+      font-size: 2em;
+      line-height: 2em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="p1">
+    <div class="s1">1</div>
+    <div class="s2">1</div>
+  </div>
+  <div class="p2">
+    <div class="s5">1</div>
+    <div class="s6">1</div>
+  </div>
+</body>
+<script>
+  let givenArr = [[1, 2, 2,[333,333,[444,[123,4564,[345354]]]]], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+
+  function flat(arr) {
+    return arr.reduce((total,current)=>{
+      if(Array.isArray(current)){
+        return total.concat(flat(current))
+      }else{
+        return total.concat(current)
+      }
+    },[])
+  }
+
+  const res = flat(givenArr)
+  console.log("res", res)
+
+
+
+
+  // const array1 = ['a', 'b', 'c'];
+  // const array2 = 'e';
+  // const array3 = array1.concat(array2);
+
+  // console.log(array3)
+
+</script>
+
 </html>
