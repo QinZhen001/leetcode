@@ -1,21 +1,51 @@
 /**
- * @param {string} s
- * @param {string} t
- * @return {character}
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
  */
-var findTheDifference = function (s, t) {
-  s = s.split('').sort((a, b) => a.charCodeAt() - b.charCodeAt())
-  t = t.split('').sort((a, b) => a.charCodeAt() - b.charCodeAt())
-
-  for(let i=0;i<t.length;i++){
-    if(s[i] !== t[i]){
-      return t[i]
-    }
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function (head) {
+  if (!head) {
+    return null
   }
-
+  if(!head.next){
+     // 如果只存在一个节点
+    return head
+  }
+  let arr = []
+  let node = head
+  while (node) {
+    arr.push(node)
+    node = node.next
+  }
+  arr.sort((a, b) => a.val - b.val)
+  for (let i = 0; i < arr.length - 1; i++) {
+    arr[i].next = arr[i + 1]
+  }
+  arr[arr.length - 1].next = null
+  return arr[0]
 }
 
-const param1 = 'abcd'
-const param2 = 'abcde'
-const res = findTheDifference(param1, param2)
+// ------------ test ----------------
+class Node {
+  constructor(val) {
+    this.val = val
+    this.next = null
+  }
+}
+
+const arr = [4, 2, 1, 3]
+const nodeArr = arr.map((item) => new Node(item))
+console.log(nodeArr)
+for (let i = 0; i < nodeArr.length - 1; i++) {
+  nodeArr[i].next = nodeArr[i + 1]
+}
+const head = nodeArr[0]
+
+const res = sortList(head)
 console.log('res', res)
