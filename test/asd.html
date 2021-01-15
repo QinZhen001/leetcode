@@ -6,68 +6,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>asd</title>
   <style lange="scss">
+    .parent {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: red;
+      overflow: scroll;
+    }
 
+    .inner {
+      position: relative;
+      width: 100%;
+      height: 1000px;
+      background: blue;
+    }
 
+    .child {
+      position: absolute;
+      left: 10px;
+      top: 500px;
+      width: 30px;
+      height: 30px;
+      background: firebrick;
+    }
   </style>
 </head>
 
 <body>
-  <div class="tab-navbar">
-    <input id="tab1" type="radio" name="tabs" hidden checked>
-    <input id="tab2" type="radio" name="tabs" hidden>
-    <input id="tab3" type="radio" name="tabs" hidden>
-    <input id="tab4" type="radio" name="tabs" hidden>
-    <nav>
-      <label for="tab1">标题1</label>
-      <label for="tab2">标题2</label>
-      <label for="tab3">标题3</label>
-      <label for="tab4">标题4</label>
-    </nav>
-    <main>
-      <ul>
-        <li>内容1</li>
-        <li>内容2</li>
-        <li>内容3</li>
-        <li>内容4</li>
-      </ul>
-    </main>
+  <div class="parent">
+    <div class="inner">
+      <div class="child"></div>
+    </div>
   </div>
 </body>
 
+<!-- <script src="https://unpkg.com/css-doodle@0.13.2/css-doodle.min.js"></script>
+
+<css-doodle>
+  :doodle {
+  @grid: 18 / 100vmax;
+  background: #0a0c27;
+  }
+  --hue: calc(180 + 1.5 * @row * @col);
+  background: hsl(var(--hue), 50%, 70%);
+  margin: -.5px;
+  transition: @r(.5s) ease;
+  clip-path: polygon(@pick(
+  '0 0, 100% 0, 100% 100%',
+  '0 0, 100% 0, 0 100%',
+  '0 0, 100% 100%, 0 100%',
+  '100% 0, 100% 100%, 0 100%'
+  ));
+</css-doodle> -->
+
+
 <script>
 
-
-
-  class Depository {
-    constructor(options) {
-      this.cargo = options
-    }
-
-    // 转入货物
-    transferIn(cargo) {
-      if()
-    }
-    // 转出货物
-    transferOut(cargo) { }
-  }
-
-
-
-  const d = new Depository()
-
-  d.transferIn({
-    productA: {
-      a: 3,
-      c: 1
-    }
-  })
-
-  d.transferOut({
-    productA: {
-      a: 4
-    }
-  })
-
+  let waitf = null
+  let tAsync = async function () {
+    console.log(`----->`)
+    await new Promise((resolve) => {
+      waitf = resolve
+    });
+    console.log(`<-----`)
+  };
+  tAsync();
+  waitf()
 </script>
 
 </html>
