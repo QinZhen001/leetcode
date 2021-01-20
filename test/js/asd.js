@@ -1,97 +1,78 @@
-// let arr = [3, 6, 9, 2];
-// bucketSort(arr);
+let paths = []
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number[][]}
+ */
+var pathWithObstacles = function (obstacleGrid) {
+  let n = obstacleGrid.length - 1
+  let m = obstacleGrid[0].length - 1
+  if (obstacleGrid[0][0] == 1 || obstacleGrid[n][m] == 1) {
+    return []
+  }
 
-// function bucketSort(arr) {
-//   let min = Number.MAX_VALUE;
-//   let max = Number.MIN_VALUE;
-//   for (let item of arr) {
-//     if (item > max) {
-//       max = item;
-//     }
-//     if (item < min) {
-//       min = item;
-//     }
-//   }
-//   if (min == max) {
-//     return 0;
-//   }
-//   // console.log(max, min);
-//   let buckets = new Array(max - min + 1).fill(0);
+  // dp[i][j] = 0 该点位置在某一条路径上 （走得通）
+  // do[i][j] = 1 该点位置不在任何一条路径上 或 在障碍物上 （走不通）
+  const dp = JSON.parse(JSON.stringify(obstacleGrid))
 
-//   for (let item of arr) {
-//     buckets[item - min]++;
-//   }
-//   console.log("buckets",buckets)
-// }
-
-// function rid(str) {
-//   return str.replace(/a+/g,'a').replace(/c+/g,'c').replace("b","")
-// }
-
-// let res1 =  rid('aacbd')
-// let res2 =  rid('aabcd')
-// let res3 =  rid('aaabbccc')
-
-// console.log('res1',res1)
-// console.log('res2',res2)
-// console.log('res3',res3)
-
-
-function run(gen){
-  return new Promise((resolve,reject)=>{
-    if(typeof gen == 'function'){
-      gen = gen()
-    }
-
-    if(!gen || typeof gen.next !== function){
-      // gen 不是迭代器
-      return resolve(gen)
-    }
-
-    onFullfilled()
-
-    function onFullfilled(res){
-      let ret 
-      try {
-        ret = gen.next(res)
-      } catch (error) {
-        return reject(error)
+  for (let i = n; i >= 0; i--) {
+    for (let j = m; j >= 0; j--) {
+      if (i == n && j == m) {
+        // 处于右下角 （终点位置）
+        continue
       }
-      next(ret)
-    }
-
-    function onRejected(err){
-      let ret 
-      try {
-        reject = gen.throw(err)
-      } catch (error) {
-        return  reject(error)
+      if (dp[i][j] == 1) {
+        // 处于障碍物位置
+        continue
       }
-      next(ret)
-    }
-
-    function next(ret){
-      if(ret.done){
-        return resolve(ret.value)
+      if (i == n) {
+        // 处于最后一行
+        dp[i][j] = dp[i][j + 1]
+      } else if (j == m) {
+        // 处于最后一列
+        dp[i][j] = dp[i + 1][j]
+      } else {
+        // 处于中间位置
+        // 右 下 只要有一个位置走的通就走的通 => 只要存在一个0就是0 （0是走的通）
+        dp[i][j] = dp[i][j + 1] && dp[i + 1][j]
       }
-
-      let value = toPromise(ret.value)
-      if(value && isPromise(value)){
-        return lue.then(onFulfilled, onRejected);
-      }
-      return onRejected(new Error('You may only yield a function'))
     }
+  }
 
-  })
+  if (dp[0][0] == 1) {
+    // 走不通
+    return []
+  }
+
+  // 深度搜索 找到答案
+  dfs(dp, 0, 0)
+  const result = JSON.parse(JSON.stringify(paths))
+  paths = []
+  return result
 }
 
+function dfs(dp, x, y) {
+  let m = dp.length - 1
+  let n = dp[0].length - 1
+  paths.push([x, y])
+  if (x == m && y == n) {
+    return
+  }
+  // 我们只需要找到一条路径
+  // 0的路径就是答案
+  if (x < m && dp[x + 1][y] == 0) {
+    dfs(dp, x + 1, y)
+  } else if (y < n && dp[x][y + 1] == 0) {
+    dfs(dp, x, y + 1)
+  }
+}
 
-
-    class Node {
-      constructor(element) {
-        this.element = element
-        this.next = null
-      }
-    }
-
-
+const arr = [
+  [0, 0, 0],
+  [0, 1, 0],
+  [0, 0, 0],
+]
+// const arr = [[1]]
+// const arr = [[1,0]]
+// const arr = [[0], [0]]
+const res = pathWithObstacles(arr)
+console.log('res', res)
