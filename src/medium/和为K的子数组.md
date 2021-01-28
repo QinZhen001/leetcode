@@ -20,11 +20,13 @@
 
 ### 代码
 
-解决：动态规划
 
-这种办法在大数据下会超时
 
-不通过
+#### 动态规划
+
+> 不通过 超出时间范围
+>
+> 时间复杂度：O(n^2) 
 
 
 ```javascript
@@ -56,18 +58,21 @@ var subarraySum = function (nums, k) {
     return total
 };
 
-```       
+```
 
 ----
+
+
+
+#### 累加和数组
+
+> 不通过 超出时间范围
+>
+> 时间复杂度：O(n^2) 
 
 [https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode/](https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode/)
 
 这个实现是基于累加和数组
-
-
-通过
-
-时间复杂度：O(n^2) 
 
 
 ```javascript
@@ -97,6 +102,73 @@ var subarraySum = function (nums, k) {
 
 
 ```
+
+
+
+
+
+#### 前缀和 + 哈希表优化
+
+https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/he-wei-kde-zi-shu-zu-by-leetcode-solution/
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var subarraySum = function (nums, k) {
+  if (!nums || !nums.length) {
+    return 0
+  }
+  const map = new Map()
+  // 为了 map.get(pre - k) => map.get(0) 的情况
+  map.set(0, 1);
+
+  let count = 0
+  let pre = 0
+  for (let x of nums) {
+    pre += x
+    if (map.has(pre - k)) {
+      // 也就是说这个时候 pre为k
+      count += map.get(pre - k)
+    }
+    if (map.has(pre)) {
+      map.set(pre, map.get(pre) + 1)
+    } else {
+      map.set(pre, 1)
+    }
+  }
+
+  // console.log(map)
+  return count
+}
+```
+
+
+
+
+
+
+
+### 测试
+
+```js
+const nums = [-1, -1, 1]
+const k = 0
+const res = subarraySum(nums, k)
+console.log('res', res)
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
