@@ -46,6 +46,32 @@
 // const num = 8
 // const res = passGame(names, num)
 
-let arr = [1, 2, 3, 4, 5]
-const ddd =  arr.slice(0, 0)
-console.log(ddd)
+// let arr = [1, 2, 3, 4, 5]
+// const ddd =  arr.slice(0, 0)
+// console.log(ddd)
+
+
+function Foo() {
+  Foo.a = function () {
+    console.log(1)
+  }
+
+  // this.a = function () {
+  //   console.log(2)
+  // }
+}
+
+Foo.prototype.a = function () {
+  console.log(3)
+}
+
+Foo.a = function () {
+  console.log(4)
+}
+
+
+
+Foo.a()  //4 
+let obj = new Foo()
+obj.a() //3
+Foo.a() //1

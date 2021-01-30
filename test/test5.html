@@ -24,13 +24,74 @@
 </head>
 
 <body>
-  <div class="center-layout">
-    <div></div>
+  <div>
+    <span>f</span>
+    <span>o</span>
+    <span>o</span>
   </div>
 </body>
 <script src="./js/tttt5.js"></script>
 <script>
+  // class Ele {
+  //   constructor(ele) {
+  //     this.ele = ele
+  //     this.cur = ele
+  //     this.depth = 1
+  //   }
 
+  //   // 获取当前元素的深度
+  //   getEleDepth() {
+  //     let parent = this.cur.parentNode
+  //     if (parent && parent !== document) {
+  //       this.cur = parent
+  //       this.depth++
+  //       return this.getEleDepth()
+  //     }
+  //     return this.depth
+  //   }
+
+  //   // 获取当前节点的子元素个数
+  //   getEleSubNum() {
+  //     let children = this.ele.childNodes
+  //     let num = 0
+  //     children.forEach(element => {
+  //       if (element.nodeName !== '#text') {
+  //         num++
+  //       }
+  //     });
+  //     return num
+  //   }
+  // }
+
+  // let obj = {
+  //   totalElementsCount: 0,
+  //   maxDOMTreeDepth: 0,
+  //   maxChildrenCount: 0,
+  // }
+  // const totalElements = document.getElementsByTagName("*")
+  // obj.totalElementsCount = totalElements.length
+
+
+  // let eleDepthArr = []
+  // let eleSubArr = []
+
+  // for (let i = 0; i < totalElements.length; i++) {
+  //   eleDepthArr.push(
+  //     new Ele(totalElements[i]).getEleDepth()
+  //   )
+  //   eleSubArr.push(
+  //     new Ele(totalElements[i]).getEleSubNum()
+  //   )
+  // }
+
+  // // console.log(eleDepthArr)
+  // // console.log(eleSubArr)
+  // // console.log(totalElements, obj)
+
+  // obj.maxDOMTreeDepth = Math.max(...eleDepthArr)
+  // obj.maxChildrenCount = Math.max(...eleSubArr)
+
+  // console.log(obj)
 </script>
 
 </html>
