@@ -1,18 +1,17 @@
-window.addEventListener('error', function (e) {
-  const { message, filename, lineno, colno, error } = e
-  debugger
-})
+// 代码片段一：是否存在堆栈溢出错误?
+// function foo() {
+//   console.log(111)
+//   setTimeout(foo, 0);
+// }
 
-window.addEventListener('unhandledrejection', (e) => {
-  console.log(e)
-})
 
-const res = function () {
-  return new Promise((resolve, reject) => {
-    reject(111)
-  })
+// foo();
+
+
+
+
+// 代码片段二:如果在控制台中运行以下函数，页面(选项卡)的 UI 是否仍然响应?
+function foo() {
+  return Promise.resolve().then(foo);
 }
-
-res().then(res=>{
-  console.log(111,res)
-})
+foo();
