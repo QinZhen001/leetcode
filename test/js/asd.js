@@ -1,6 +1,4 @@
-let str = 'abcdefg'
-const arr =  str.split('')
-arr.splice(2, 1)
-const res = arr.join('')
-
-console.log(res)
+let a = 0
+if (a == null) {
+  console.log('adsad')
+}
