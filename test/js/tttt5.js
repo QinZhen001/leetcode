@@ -3,18 +3,21 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var rotate = function (matrix) {
-  const len = matrix.length;
-  const arr = new Array(matrix.length);
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = new Array(arr.length).fill(0);
+  for (let i = 0; i < matrix.length / 2; i++) {
+    let temp = matrix[i].slice();
+    matrix[i] = matrix[matrix.length - i-1].slice()
+    matrix[matrix.length - i-1] = temp
   }
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix.length; j++) {
-      arr[j][len - i - 1] = matrix[i][j];
+
+  for(i=0;i<matrix.length;i++){
+    for(let j=0;j<i;j++){
+      let temp = matrix[i][j]
+      matrix[i][j] = matrix[j][i]
+      matrix[j][i] = temp
     }
   }
-  matrix = arr;
-  console.log(matrix);
+
+  console.log(matrix)
 };
 
 const arr = [
