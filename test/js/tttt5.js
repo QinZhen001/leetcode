@@ -1,29 +1,32 @@
 /**
- * @param {number[][]} matrix
- * @return {void} Do not return anything, modify matrix in-place instead.
+ * @param {number[]} nums
+ * @return {number}
  */
-var rotate = function (matrix) {
-  for (let i = 0; i < matrix.length / 2; i++) {
-    let temp = matrix[i].slice();
-    matrix[i] = matrix[matrix.length - i-1].slice()
-    matrix[matrix.length - i-1] = temp
+var longestConsecutive = function (nums) {
+  if (!nums || !nums.length) {
+    return 0;
   }
-
-  for(i=0;i<matrix.length;i++){
-    for(let j=0;j<i;j++){
-      let temp = matrix[i][j]
-      matrix[i][j] = matrix[j][i]
-      matrix[j][i] = temp
+  nums.sort((a, b) => a - b);
+  let max = 1;
+  let count = 1;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] - nums[i - 1] == 1) {
+      count++;
+    } else if (nums[i] == nums[i - 1]) {
+      // 前后元素相等
+      continue;
+    } else {
+      max = Math.max(max, count);
+      count = 1;
     }
   }
-
-  console.log(matrix)
+  console.log(arr);
+  max = Math.max(max, count);
+  return max;
 };
 
-const arr = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-];
-const res = rotate(arr);
+// const arr = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
+// const arr = [100, 4, 200, 1, 3, 2];
+const arr = [1, 2, 0, 1];
+const res = longestConsecutive(arr);
 console.log("res", res);
