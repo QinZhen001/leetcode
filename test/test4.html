@@ -5,37 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .parent{
-        width: 500px;
-        height: 500px;
-        background: red;
-        position: relative;
-        padding: 10px;
-      }
 
       .item1{
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        background: salmon;
+       height: 500px;
+       /* line-height: 500px; */
+       background: red;
       }
 
       .item2{
-        position: relative;
         width: 100px;
         height: 100px;
         background: darkblue;
+        overflow: hidden;
+      }
+
+      .span2{
+        vertical-align: middle;
+        line-height: 500px;
+      }
+
+      .test{
+        font-size: 0;
+        height: 400px;
+        line-height: 400px;
+        background: red;
+      }
+
+      .ttt{
+        /* font-size: 12px; */
+       
+      }
+
+      img{
+        /* display: block; */
+        vertical-align:middle
       }
     </style>
   </head>
 
   <body>
-    <div>
-       <div class="parent">
-          <div class="item1"></div>
-          <div class="item2"></div>
-       </div>
+    <div class="test" style="background-color:#e5edff;">
+      <img src="https://image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
+      <span class="ttt">1222</span>
     </div>
+
+
     <script src="./js/ttt4.js"></script>
     </script>
   </body>
