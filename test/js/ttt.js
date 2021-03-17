@@ -1,24 +1,47 @@
+let masked = []
 /**
- * @param {number[]} nums
- * @param {number} k
+ * @param {number[]} gas
+ * @param {number[]} cost
  * @return {number}
  */
-var subarraySum = function (nums, k) {
-  // totals[i] 记录 0 到 i-1 元素的和
-  let totals = [] 
-  totals[0] = 0
-  for (let i = 1; i <= nums.length; i++) {
-    totals[i] = totals[i - 1] + nums[i - 1]
-  }
-
-  for (let start = 0; start < nums.length; start++) {
-    for (let end = start + 1; end <= nums.length; end++) {
-      // totals[end] - totals[start] => 可以知道 start到end位置的和
-      let num = totals[end] - totals[start]
-
-      // ....
+var canCompleteCircuit = function (gas, cost) {
+  masked = new Array(gas.length).fill(false)
+  for (let i = 0; i < gas.length; i++) {
+    if (getCircuit(i, gas[i], gas, cost)) {
+      return i
     }
+    masked.fill(false)
   }
-  
-  // ..
+  return -1
 }
+
+function getCircuit(i, cur, gas, cost) {
+  debugger
+  if (masked.every((item) => item)) {
+    return true
+  }
+  let left = i - 1
+  let right = i + 1
+  if (i == 0) {
+    left = gas.length - 1
+  }
+  if (i == gas.length - 1) {
+    right = 0
+  }
+  let leftFlag = false
+  let rightFlag = false
+  if (cur - cost[left] >= 0) {
+    masked[left] = true
+    leftFlag = getCircuit(left, cur - cost[left], gas, cost)
+  }
+  if (cur - cost[right] >= 0) {
+    masked[right] = true
+    rightFlag = getCircuit(right, cur - cost[right], gas, cost)
+  }
+  return leftFlag || rightFlag
+}
+
+const gas = [1, 2, 3, 4, 5]
+const cost = [3, 4, 5, 1, 2]
+const res = canCompleteCircuit(gas, cost)
+console.log('res', res)
