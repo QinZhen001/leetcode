@@ -5,48 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+body{
+  margin: 0;
+  padding: 0;
+}
 
-      .item1{
-       height: 500px;
-       /* line-height: 500px; */
-       background: red;
-      }
+        .parent{
+          position: relative;
+          left: 10px;
+          top: 10px;
+          width: 500px;
+          height: 500px;
+          background: red;
+          padding: 10px;
+          margin: 10px;
+        }
 
-      .item2{
-        width: 100px;
-        height: 100px;
-        background: darkblue;
-        overflow: hidden;
-      }
+        .child{
+          position: relative;
+          left: 10px;
+          top: 10px;
+          width: 100px;
+          height: 100px;
+          background: salmon;
+        }
 
-      .span2{
-        vertical-align: middle;
-        line-height: 500px;
-      }
-
-      .test{
-        font-size: 0;
-        height: 400px;
-        line-height: 400px;
-        background: red;
-      }
-
-      .ttt{
-        /* font-size: 12px; */
-       
-      }
-
-      img{
-        /* display: block; */
-        vertical-align:middle
-      }
     </style>
   </head>
 
   <body>
-    <div class="test" style="background-color:#e5edff;">
-      <img src="https://image.zhangxinxu.com/image/study/s/s256/mm1.jpg">
-      <span class="ttt">1222</span>
+    <div class="parent">
+        <div class="child"></div>
     </div>
 
 

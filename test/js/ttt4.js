@@ -1,51 +1,74 @@
 /**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
+ * @param {character[][]} board
+ * @return {boolean}
  */
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var sortList = function (head) {
-  if (!head) {
-    return null
+var isValidSudoku = function (board) {
+  if (!board || !board.length || !board[0].length) {
+    return false;
   }
-  if(!head.next){
-     // 如果只存在一个节点
-    return head
+
+  // 行
+  for (let i = 0; i < board.length; i++) {
+    if (!test(board[i])) {
+      return false;
+    }
   }
-  let arr = []
-  let node = head
-  while (node) {
-    arr.push(node)
-    node = node.next
+
+  // 列
+  for (let i = 0; i < board[0].length; i++) {
+    let arr = [];
+    for (let j = 0; j < board.length; j++) {
+      arr.push(board[j][i]);
+    }
+    if (!test(arr)) {
+      return false;
+    }
   }
-  arr.sort((a, b) => a.val - b.val)
-  for (let i = 0; i < arr.length - 1; i++) {
-    arr[i].next = arr[i + 1]
+
+  // 3*3
+  for (let num = 0; num < 9; num++) {
+    // 总共9个 3*3
+    let arr = [];
+    let startX = parseInt(num / 3) * 3;
+    let startY = (num % 3) * 3;
+    console.log(startX, startY);
+    for (let i = startX; i < startX + 3; i++) {
+      for (let j = startY; j < startY + 3; j++) {
+        arr.push(board[i][j]);
+      }
+    }
+    if (!test(arr)) {
+      return false;
+    }
   }
-  arr[arr.length - 1].next = null
-  return arr[0]
+
+  return true;
+};
+
+function test(arr) {
+  let obj = {};
+  for (let item of arr) {
+    if (item !== ".") {
+      if (obj[item]) {
+        return false;
+      }
+      obj[item] = 1;
+    }
+  }
+  return true;
 }
 
-// ------------ test ----------------
-class Node {
-  constructor(val) {
-    this.val = val
-    this.next = null
-  }
-}
+board = [
+  ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+  ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+  [".", "9", "8", ".", ".", ".", ".", "6", "."],
+  ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+  ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+  ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+  [".", "6", ".", ".", ".", ".", "2", "8", "."],
+  [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+  [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+];
 
-const arr = [4, 2, 1, 3]
-const nodeArr = arr.map((item) => new Node(item))
-console.log(nodeArr)
-for (let i = 0; i < nodeArr.length - 1; i++) {
-  nodeArr[i].next = nodeArr[i + 1]
-}
-const head = nodeArr[0]
-
-const res = sortList(head)
-console.log('res', res)
+const res = isValidSudoku(board);
+console.log("res", res);
