@@ -1,8 +1,6 @@
-/**
- * @param {number[][]} matrix
- * @param {number} target
- * @return {boolean}
- */
-var findNumberIn2DArray = function(matrix, target) {
 
-};
+
+const first = "pales";
+const second = "palee";
+const res = oneEditAway(first, second);
+console.log("res", res);
