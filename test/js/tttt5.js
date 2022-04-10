@@ -1,51 +1,43 @@
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {TreeNode} p
- * @param {TreeNode} q
- * @return {TreeNode}
- */
-var lowestCommonAncestor = function (root, p, q) {
-  if (!root) {
-    return null;
+class Timer {
+  constructor(num) {
+    this.num = num;
+    this.timer = null;
+    this.hasStarted = false;
   }
-  let map = new Map();
-  let visited = new Set();
-
-  // 将每一个节点parent记录到map
-  const dfs = (node) => {
-    if (node.left) {
-      map.set(node.left, node);
-      dfs(node.left)
+  start() {
+    if (this.hasStarted) {
+      return;
     }
-    if (node.right) {
-      map.set(node.right, node);
-      dfs(node.right)
+    this.hasStarted = true;
+    if (this.timer) {
+      // 处理pause之后再start
+      clearInterval(this.timer);
     }
-  };
-
-  dfs(root);
-
-  while(p){
-    // tip: p自己也是路径上的
-    visited.add(p)
-    let parent = map.get(p)
-    p = parent
+    this.timer = setInterval(() => {
+      if (this.num < 0 || !this.hasStarted) {
+        return;
+      }
+      console.log(this.num);
+      this.num--;
+    }, 1000);
   }
-
-  while(q){
-    if(visited.has(q)){
-      return q
+  pause() {
+    if (!this.hasStarted) {
+      return;
     }
-    let parent = map.get(q)
-    q = parent
+    this.hasStarted = false;
   }
+  cancel() {
+    if (!this.hasStarted) {
+      return;
+    }
+    this.hasStarted = false;
+    this.num = 0
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+}
 
-  return null
-};
+
