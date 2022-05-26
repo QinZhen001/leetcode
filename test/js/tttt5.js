@@ -1,48 +1,43 @@
 /**
- * @param {number[]} w
- */
-var Solution = function (w) {
-  this.w = w;
-  this.pre = new Array(w.length).fill(0);
-  this.pre[0] = w[0];
-  for (let i = 1; i < w.length; i++) {
-    this.pre[i] = this.pre[i - 1] + w[i];
-  }
-  this.sum = this.w.reduce((total, cur) => total + cur, 0);
-};
-
-/**
+ * @param {string} word1
+ * @param {string} word2
  * @return {number}
  */
-Solution.prototype.pickIndex = function () {
-  let target = null;
-  let x = Math.floor(Math.random() * this.sum) + 1;
-  let left = 0;
-  let right = this.w.length - 1;
-  while (left <= right) {
-    let mid = Math.floor((right - left) / 2) + left;
-    if (this.pre[mid] - this.w[mid] + 1 >= x && x <= this.pre[mid]) {
-      left = mid;
-      break;
-    } else if (this.pre[mid] < x) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
+var minDistance = function (word1, word2) {
+  let len1 = word1.length;
+  let len2 = word2.length;
+  let dp = new Array(len1);
+  for (let i = 0; i < dp.length; i++) {
+    dp[i] = new Array(len2).fill(0);
+  }
+  // dp[i][j] =>  word1[0, ...i] 变为 word2[0,...j] 所需要的步骤
+
+  // init
+  for (let i = 0; i < len1; i++) {
+    dp[i][0] = i;
+  }
+  for (let i = 0; i < len2.length; i++) {
+    dp[0][i] = i;
+  }
+
+  for (let i = 0; i < len1; i++) {
+    for (let j = i; j < len2; j++) {
+      if (word1[i] == word2[j]) {
+        if (i == 0 || j == 0) {
+          continue;
+        } else {
+          dp[i][j] = dp[i - 1][j - 1];
+        }
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+      }
     }
   }
-  target = left;
-  return target;
+
+  return dp[len1 - 1][len2 - 1];
 };
 
-/**
- * Your Solution object will be instantiated and called as such:
- * var obj = new Solution(w)
- * var param_1 = obj.pickIndex()
- */
-
-let solution = new Solution([1, 3]);
-console.log(solution.pickIndex());
-console.log(solution.pickIndex());
-console.log(solution.pickIndex());
-
-// 前缀和 + 二分查找
+let word1 = "horse";
+let word2 = "ros";
+const res = minDistance(word1, word2);
+console.log("res", res, map);
