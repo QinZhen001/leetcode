@@ -37,9 +37,17 @@ body{
     <div class="parent">
         <div class="child"></div>
     </div>
-
-
     <script src="./js/ttt4.js"></script>
     </script>
   </body>
+
+  <script>
+      window.addEventListener(
+      "error",
+      (event) => {
+        console.log("error", event);
+      },
+      true
+    );
+  </script>
 </html>
